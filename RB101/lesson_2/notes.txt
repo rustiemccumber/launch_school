@@ -1,0 +1,32 @@
+Walk through calculator
+
+inputs
+ -ask for two numbers
+ -ask for the type of operation to perform: add subtract multipy or divide
+
+outputs
+-display the results
+
+example 
+
+"please input two numbers". (2, 3)
+"please select operation". add
+
+puts = 5 
+
+rules
+
+Use the Kernel.gets() method to retrieve user input, and use Kernel.puts() method to display output. Remember that Kernel.gets() includes the newline, so you have to call chomp() to remove it: Kernel.gets().chomp().
+
+  - Edge cases
+    - focus on input
+     - what if input a letter?
+     - what if I input 0 or nil?
+    - emptiness (nil/null, "", [], {})
+
+    - boundary conditions
+
+    - repetition / duplication
+
+    - data types
+    what should the input form be (array etc)

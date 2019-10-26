@@ -1,0 +1,38 @@
+1) a method that returns the sum of two integers
+
+2) a method that takes an array of strings, and returns a string that is all those strings concatenated together
+
+3) a method that takes an array of integers, and returns a new array with every other element
+
+1)
+
+START
+
+Get two integers from the user
+
+Reads the two integers from the user and performs addition
+
+Prints the addition 
+
+END
+
+2)
+
+Given an array of strings.
+
+iterate through the array 
+ - join the previous value with following value
+
+after finishing return a string of the contenated string
+
+START
+
+SET array_of_string = ['array', "of", "string"]
+
+READ array 
+ -iterate on array a do 
+  -add previous value to second value
+  -Set new string to new_string
+
+PRINT new string
+
