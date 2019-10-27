@@ -1,0 +1,68 @@
+
+
+
+=begin
+  
+from the user get (INPUTS)
+ -loan amount
+ -the Annual Percentage Rate (APR)
+ -the loan duration 
+
+intermediate outputs
+ 
+ -montly interest rate
+ -loan duration in month
+
+Out puts
+
+ -monthy payment
+
+
+m = p * (j / (1 - (1 + j)**(-n)))
+
+m = monthly payment
+p = loan amount
+j = monthly interest rate
+n = loan duration in months
+
+pseudo code
+
+Have user input
+ -loan amount
+ -the annual percentage rate (apr)
+ -the loan duration
+  -ask for the loan duration in years
+
+def to check to make sure input is Float for apr if not ask again
+
+convert loan duration to months
+
+puts m
+
+
+Gets 
+  -loan amount (float with no comma) p
+  -APR (float)
+  -Loan duration (years)
+
+while not integer || float 
+    prompt again
+end
+
+while apr not float
+    prompt again
+end
+
+method 
+  convert apr to monthly interest rate j
+end
+
+method 
+  convert Loan duration  months n
+end
+
+
+ puts m = p * (j / (1 - (1 + j)**(-n)))
+
+
+

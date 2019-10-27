@@ -6,12 +6,27 @@
 #answer = Kernel.gets().chomp()
 #Kernel.puts(answer)
 
+
+require 'yaml'
+MESSAGES = YAML.load_file('calculator_messages.yml')
+
+
+
 def prompt(message)
+
   Kernel.puts("=> #{message}")
+
 end
 
 def valid_number?(num)
-  num.to_i() != 0
+
+  if num.include? "."
+    num.to_f.to_s == num 
+
+  else
+    num.to_i.to_s == num
+  end
+
 end
 
 def operation_to_message(op)
@@ -25,17 +40,19 @@ def operation_to_message(op)
   when '4'
     'dividing'
   end
+  
+
 
 end
 
-prompt("welcome to the calculator. Enter your name")
+prompt(MESSAGES['welcome'])
 
 
 name = ''
 loop do 
   name = Kernel.gets().chomp()
   if name.empty?()
-    prompt("Make sure to use a valid name")
+    prompt(MESSAGES['welcome'])
   else
     break
   end
@@ -56,6 +73,8 @@ loop do #main loop
       prompt("shit wasn't valid")
     end
   end
+
+
 
   number2 = ''
 
