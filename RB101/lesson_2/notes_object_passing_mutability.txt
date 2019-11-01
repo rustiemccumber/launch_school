@@ -1,0 +1,29 @@
+mutability 
+
+  unmutable (numbers, booleans, and a few other types): object reference will be changed to a new object location (a copy, or passed by value approach) if you try to change the number, boolean or few other type. 
+
+            def uppercase(value)
+              value.upcase!
+            end
+
+            name = 'William'
+            uppercase(name)
+            puts name               # WILLIAM name and value where associated to the same object, passed into method
+                                      and mutated by the value.upcase! (b/c !).  name and value maintain same mutated object WILLIAM(= name, = value)
+
+  mutable (most objects in ruby; arrays, strings, etc): object location will remain the same. object location will not be changed!
+
+  strict evaluation: every expression is evaluated and converted to an object before it is passed along to a method. Ruby uses strict evaluation.
+
+  +++ Pass by number and pass by value -----------
+
+  object passing strategies: pass by value and pass by reference.
+
+  Ruby uses pass by reference when an object is muteable (the value of the object can be updated).  
+  Ruby uses passed by value when an object is immuteable.
+
+  Is that our final answer to the question of whether ruby is pass by reference or pass by value? It’s neither? Yes. Well, maybe not entirely; there are actually three answers to the question of what object passing strategy ruby uses:
+
+    pass by reference value is probably the most accurate answer, but it’s a hard answer to swallow when learning ruby, and isn’t particularly helpful when trying to decide what will happen if a method modifies an argument – at least not until you fully understand it.
+    pass by reference is accurate so long as you account for assignment and immutability.
+    Ruby acts like pass by value for immutable objects, pass by reference for mutable objects is a reasonable answer when learning about ruby, so long as you keep in mind that ruby only appears to act like this.
