@@ -1,0 +1,24 @@
+inputs
+
+prompt the user for either: rock, paper, scissor, lizard, spock (r, p, s, l, z)
+
+computation:
+
+have the computer randomly choose through one of the (r, p, s, l, z)
+
+display what you have choosen and what the computer has chosoen 
+
+compare the results 
+  
+  if the computer has won then increment the score for the computer += 1
+  if the player has won then increment the score the the player +=1
+
+while score is < 5 for either player or computer
+  continue playing
+
+if the score == 5 for either player or computer 
+  -stop current game
+  -tell which user person has won
+  -clear score 
+
+prompt the user if they want to play again, if not break 
