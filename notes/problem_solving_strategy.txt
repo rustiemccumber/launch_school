@@ -1,14 +1,27 @@
 Problem solving strategy
 
+From part 1
+
 Read word problem and define the following:
 
 Understand the problem
+
  - input
     - define the inputs/variables
 - output 
   - define the desired outputs
 - rules
   - define the rules or any information which is implict to the problem (st, nd, rd, th, etc (century problem))
-  
+
+
 - make example/test cases
   -show you you want the input and output to look like in various scenarios
+
+  - Edge cases
+    - focus on input
+    - emptiness (nil/null, "", [], {})
+    - boundary conditions
+    - repetition / duplication
+    - data types
+    
+  From part 2

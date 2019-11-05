@@ -1,0 +1,34 @@
+
+=begin
+
+write method 
+
+-input integer
+ - negative, positive, zero
+
+output
+
+- True: if integer is odd
+- False: if integer is 0
+
+example 
+  puts is_odd?(2)    # => false
+  puts is_odd?(5)    # => true
+  puts is_odd?(-17)  # => true
+  puts is_odd?(-8)   # => false
+  puts is_odd?(0)    # => false
+  puts is_odd?(7)    # => true
+
+=end 
+
+def is_odd?(num)
+  num % 2 == 1
+end 
+
+
+puts is_odd?(2)    
+puts is_odd?(5)    
+puts is_odd?(-17) 
+puts is_odd?(-8)  
+puts is_odd?(0)    
+puts is_odd?(7) 

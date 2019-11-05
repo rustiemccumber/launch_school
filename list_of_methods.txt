@@ -1,0 +1,74 @@
+
+.delete_if {|x| x <10 }
+
+.delete()
+
+
+.start_with?
+
+.included?
+
+.is_a?
+
+.empty?
+
+.length
+
+.each 
+
+.map
+
+.select
+
+.upcase/downcase
+
+.capitalize
+
+.capitalize!
+
+.split
+
+.chars
+
+.join 
+
+.gets
+
+.chomp
+
+|index|
+
+.upto()
+
+.round
+
+.reduce(:+)
+
+#{format('%02.2f', monthly_payment)}
+
+In Ruby, make sure to use snake_case when naming everything, except classes which are CamelCase or constants, which are all UPPERCASE.
+
+Variables initialized in an outer scope can be accessed in an inner scope, but not vice versa. (blocks)
+
+difference between blocks and methods = you have to pass a variable into a block to access the variable with a method, with a block if the variable was initialized outside the block first, you can then have acess to the variable within the block and the block can mutate the original value of the variable which was modified on the outerscope.
+
+Block: method invocation followed by curly braces or do..end.
+  ex:
+  [1, 2, 3].map { |num| a }
+
+Method definitions cannot directly access local variables initialized outside of the method definition, nor can local variables initialized outside of the method definition be reassigned from within it. A block can access local variables initialized outside of the block and can reassign those variables. We already know that methods can access local variables passed in as arguments, and now we have seen that methods can access local variables through interaction with blocks.
+
+
+mutability 
+
+  unmutable (numbers, booleans, and a few other types): object reference will be changed to a new object location (a copy, or passed by value approach) if you try to change the number, boolean or few other type. 
+
+  mutable (most objects in ruby; arrays, strings, etc): object location will remain the same. object location will not be changed!
+
+mutating methods
+
+<< is a mutating method
+indexed assignments (arrays, hashes) are mutating.  score[:player] += 0, cat[0] = tabby
+
+
+
