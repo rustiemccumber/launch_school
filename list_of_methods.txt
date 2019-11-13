@@ -3,10 +3,57 @@
 
 .delete()
 
+.swap_case!
 
 .start_with?
 
-.included?
+str.slice(start position, length) (same as str[start position, length]) ex: str = 'abcdefghi' 
+str[2, 3] # => "cde"
+str[0] => 'c'
+
+arr.slice(start position, length) (same as arry[start position, length]) ex: ary = ['a', 'b', 'c', 'd', 'e', 'f']
+ary[2, 3] => ['c', 'd', 'e']
+ary[2, 3][0] => 'c'
+
+.keys
+
+.values (.value[0] returns the first value in a hash country_capitals = { uk: 'London', france: 'Paris', germany: 'Berlin' }  country_capitals.values[0] = 'London')
+
+.fetch(array) (Tries to return the element at position index, but throws an IndexError exception if the referenced index lies outside of the array bounds.)
+
+
+
+.include?
+
+.all?
+
+.each_with_index do |num, index|
+
+.each_with_objects([]) do |num, array|
+
+.member?  same as .has_key?
+
+.partition
+
+.to_h
+
+.to_a
+
+.keep_if(hash)
+
+.to_i
+
+.first
+
+.has_key?
+
+.has_value?
+
+.flatten
+
+a.assoc(hash)
+
+.between?(0, 10)
 
 .is_a?
 
@@ -16,7 +63,17 @@
 
 .each 
 
+.index(string)
+
 .map
+
+.sub
+
+.sub!
+
+.empty?(array)
+
+.cover?(range)  (ex: same as (1..100).to_a.include?(42))
 
 .select
 
@@ -69,6 +126,14 @@ mutating methods
 
 << is a mutating method
 indexed assignments (arrays, hashes) are mutating.  score[:player] += 0, cat[0] = tabby
+
+
+------------Key things to think about when using methods-------------------
+
+ - How does the method treat the block's return value?
+ - What is the return value of the method?
+ - How can you use the Ruby docs to learn more about a method?
+ - Is the method destructive?
 
 
 
