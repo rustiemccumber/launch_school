@@ -14,6 +14,8 @@ WINNING_MOVES = {
   'sp' => ['sc', 'r']
 }
 
+VALID_CONTINUE_PLAYING_RESPONSE = ['y', 'n', 'no', 'yes']
+
 ABBRV_HASH = {
   'r' => 'rock',
   'p' => 'paper',
@@ -21,8 +23,6 @@ ABBRV_HASH = {
   'l' => 'lizard',
   'sp' => 'spock'
 }
-
-YES = ['yes', 'y']
 
 def abbrv_key
   key = <<-KEY
@@ -102,11 +102,18 @@ def gets_player_choice
   player_choice
 end
 
-def play_for_grand_winner?(score)
-  if score[:player] != WINNING_SCORE && score[:computer] != WINNING_SCORE
-    prompt("would you like to continue playing for grand winner? (y/yes)")
-    YES.include?(gets.chomp.downcase)
+def play_for_grand_winner_response?
+  continue_playing = ''
+  loop do
+    prompt("would you like to continue playing for grand winner? (y)es/(n)o")
+    continue_playing = gets.chomp.downcase
+    if VALID_CONTINUE_PLAYING_RESPONSE.include?(continue_playing)
+      break
+    else
+      puts "not a valid response. please enter (y)es/(n)o."
+    end
   end
+  continue_playing.start_with?('y')
 end
 
 def game_over?(score)
@@ -135,10 +142,10 @@ loop do
   display_choice(player_choice, computer_choice)
   intermediate_winner(player_choice, computer_choice)
   update_score(score, player_choice, computer_choice)
-  display_score(score, player_choice, computer_choice)
+  display_score(score)
   game_over_winner(score)
   break if game_over?(score)
-  break unless play_for_grand_winner?(score)
+  break unless play_for_grand_winner_response?
   clear_screen
 end
 
