@@ -1,7 +1,7 @@
 VALID_CHOICES = %w(r p sc l sp)
 
 def prompt(message)
-  Kernel.puts("=> #{message}")
+  puts("=> #{message}")
 end
 
 WINNING_SCORE = 5
@@ -13,6 +13,16 @@ WINNING_MOVES = {
   'l' => ['sp', 'p'],
   'sp' => ['sc', 'r']
 }
+
+ABBRV_HASH = {
+  'r' => 'rock',
+  'p' => 'paper',
+  'sc' => 'scissors',
+  'l' => 'lizard',
+  'sp' => 'spock'
+}
+
+YES = ['yes', 'y']
 
 def abbrv_key
   key = <<-KEY
@@ -40,11 +50,25 @@ def win?(first, second)
   WINNING_MOVES[first].include?(second)
 end
 
+def display_choice(player, computer)
+  prompt("you chose #{ABBRV_HASH[player]} computer chose #{ABBRV_HASH[computer]}")
+end
+
+def intermediate_winner(player, computer)
+  if win?(player, computer)
+    prompt("You win this round!")
+  elsif win?(computer, player)
+    prompt("You lost this round!")
+  else
+    prompt("OMG! It was a tie!")
+  end
+end
+
 def clear_screen
   system("clear") || system("cls")
 end
 
-def display_score(score, player, computer)
+def display_score(score)
   displaying_score = <<-DSSC
    player score : #{score[:player]}
    computer score: #{score[:computer]}
@@ -78,17 +102,18 @@ def gets_player_choice
   player_choice
 end
 
-def play_for_grand_winner(score, player, computer)
-  if [:player] != WINNING_SCORE && [:computer] != WINNING_SCORE
-    prompt("would you like to continue playing for grand winner? (y, n)")
+def play_for_grand_winner?(score)
+  if score[:player] != WINNING_SCORE && score[:computer] != WINNING_SCORE
+    prompt("would you like to continue playing for grand winner? (y/yes)")
+    YES.include?(gets.chomp.downcase)
   end
 end
- 
-def game_over?(score, player, computer)
-  score[:player] == WINNING_SCORE || score[:computer] == 5
+
+def game_over?(score)
+  score[:player] == WINNING_SCORE || score[:computer] == WINNING_SCORE
 end
 
-def game_over_winner(score, player, computer)
+def game_over_winner(score)
   if score[:player] == WINNING_SCORE
     prompt("you are the grand winner")
   elsif score[:computer] == WINNING_SCORE
@@ -101,27 +126,20 @@ score = {
   computer: 0,
   tie: 0
 }
-continue_playing = ''
+
 loop do
   welcome
   abbrv_key
   player_choice = gets_player_choice
   computer_choice = VALID_CHOICES.sample
+  display_choice(player_choice, computer_choice)
+  intermediate_winner(player_choice, computer_choice)
   update_score(score, player_choice, computer_choice)
   display_score(score, player_choice, computer_choice)
-  game_over_winner(score, player_choice, computer_choice)
-
-  if game_over?(score, player_choice, computer_choice)
-    break
-  end
-
-  play_for_grand_winner(score, player_choice, computer_choice)
-  continue_playing = gets.chomp
-
-  if continue_playing == 'y'
-    clear_screen
-  else
-    break
-  end
+  game_over_winner(score)
+  break if game_over?(score)
+  break unless play_for_grand_winner?(score)
+  clear_screen
 end
+
 prompt("Thank you for playing")
