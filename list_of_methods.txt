@@ -45,6 +45,10 @@ ary[2, 3][0] => 'c'
 
 .first
 
+.sum
+
+.upto
+
 .has_key?
 
 .has_value?
@@ -100,6 +104,10 @@ a.assoc(hash)
 .round
 
 .reduce(:+)
+
+.ord
+
+.divmod
 
 #{format('%02.2f', monthly_payment)}
 
