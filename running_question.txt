@@ -1,0 +1,18 @@
+
+
+-How does sort by work (SMALL_PROBLEMS_EASY_5)
+-----------------------------------------------------------
+NUMBER_WORDS = %w(zero one two three four
+                  five six seven eight nine
+                  ten eleven twelve thirteen fourteen
+                  fifteen sixteen seventeen eighteen nineteen)
+
+def alphabetic_number_sort(numbers)
+  numbers.sort_by { |number| NUMBER_WORDS[number] }
+end
+
+- what is a tuple?
+- does this first take the assign the number to the word using the position of NUMBER_WORDS[number]
+  the sort this the word which word which is set equal to the number thus chaning number position as well?
+  0, 1, 2 = "zero", "one", "two"
+  1, 2, 0 = "one" , "two", "zero"

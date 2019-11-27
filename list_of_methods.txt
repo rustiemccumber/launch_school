@@ -22,6 +22,11 @@ ary[2, 3][0] => 'c'
 .fetch(array) (Tries to return the element at position index, but throws an IndexError exception if the referenced index lies outside of the array bounds.)
 
 
+.sort_by
+
+.each_char
+
+.scan
 
 .include?
 
@@ -107,6 +112,8 @@ a.assoc(hash)
 
 .ord
 
+.split(':').map(&:to_i)
+
 .divmod
 
 #{format('%02.2f', monthly_payment)}
@@ -142,6 +149,5 @@ indexed assignments (arrays, hashes) are mutating.  score[:player] += 0, cat[0] 
  - What is the return value of the method?
  - How can you use the Ruby docs to learn more about a method?
  - Is the method destructive?
-
 
 

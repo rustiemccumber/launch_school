@@ -1,0 +1,11 @@
+Selection and Transformation 
+============================
+
+selection:  picking certain elements out of a collection depending on some criterion 
+ex: pick out all the odd integers of a collection.
+while there are n elements in an array, selection always results in n elements or less.
+
+
+transformation: manipulating every element in a collection. 
+ex: increment all the elements in a array by += 1
+Transformation always results in exactly n elements. 

@@ -1,0 +1,19 @@
+Methods
+=======
+EACH
+- action: iteration
+- considering the return value of the block: no
+- returns a new collection from the method: No, it returns the original
+- length of the returned collection: Length of original collection
+=======
+SELECT
+- action: selection
+- considers the return value of the block: yes
+- Returns a new collection from the method: yes
+- length of the returned collection: Length of the original or less
+=======
+MAP
+- action: Tranformation
+- considers the return value of the block: Yes
+- returns a new collection from the method: Yes
+- length of the returned collection: length of the original 
