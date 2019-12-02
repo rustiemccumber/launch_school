@@ -1,0 +1,51 @@
+Sorting
+=======
+-Generally sorting is performed on arrays, items in arrays are accessed via their index,
+there order in which those items appear is important. 
+
+<=> space_ship opporator 
+- the space_ship opporator performs a comparision between two objects and returns
+a 
+-1 (1st object < 2nd object) 
+0 (1st object == 2nd object) 
+1 (1st object > 2nd object)
+
+2 <=> 1 # => 1
+1 <=> 2 # => -1
+2 <=> 2 # => 0
+'b' <=> 'a' # => 1
+'a' <=> 'b' # => -1
+'b' <=> 'b' # => 0
+1 <=> 'a' # => nil
+
+<=> (with strings)
+string-characters are sorted based on their position in "ASCII Character order"
+'A' <=> 'a' # => -1
+'A' proceeds 'a' in the ASCII character order chart
+
+.ord gives you the ASCII value
+'b'.ord # => 98
+'}'.ord # => 125
+
+-Uppercase letters come before lowercase letters
+-Digits and (most) punctuation come before letters
+-There is an extended ASCII table containing accented 
+ and other characters - this comes after the main ASCII table
+
+sorting words
+ -compares the letters in two works one at a time (first to first, second to second)
+ as soon as one letter has a returns something other than 0 a -1 or 1 is returned. 
+
+'cbt' <=> 'cd'  #=> -1
+
+
+ ['arc', 'bat', 'cape', 'ants', 'cap'].sort
+
+ ants arc bat cap cape
+
+[['a', 'cat', 'b', 'c'], ['b', 2], ['a', 'car', 'd', 3], ['a', 'car', 'd']].sort
+# => [["a", "car", "d"], ["a", "car", "d", 3], ["a", "cat", "b", "c"], ["b", 2]]
+
+
+
+

@@ -1,0 +1,226 @@
+Evaluateing a code: Breaking done a block
+=========================================
+
+- What is the type of action being performed (method call, block, conditional, etc..)?
+- What is the object that action is being performed on?
+- What is the side-effect of that action (e.g. output or destructive action)?
+- What is the return value of that action?
+- Is the return value used by whatever instigated the action?
+
+==========
+EXAMPLE 3
+==========
+Taking appart below example:
+
+ [[1, 2], [3, 4]].map do |arr|
+  puts arr.first
+  arr.first
+end
+
+-------------------------------------------------------------------------------------------------------
+Line    Action       Object           Side Effect      Return Value    Is Return Value Used?
+-------------------------------------------------------------------------------------------------------
+14      method       Outer            None              new array      no but is return on final line
+       call (map)   Array                              [1, 3]     
+
+15-17   Block        each             None             integer at      yes used by map to perform transformation
+        execution    subarray                          index 0 of 
+                                                        subarray
+
+15      method call  each subarray    None             integer at      yes used by puts 
+        (first)                                         index 0 of
+                                                        subarray     
+
+15      method call  each element     outputs           Nil             NO 
+        (puts)       at index 0       a string
+                     of each          representation
+                     subarray         of an integer
+
+16      method call  each element     None              element           yes used to determine return 
+        (first)      at index 0                         at index 0               value of the block 
+                     of each subarray                   of each subarray
+-------------------------------------------------------------------------------------------------------
+
+==========
+EXAMPLE 4
+==========
+
+my_arr = [[18, 7], [3, 12]].each do |arr|
+  arr.each do |num|
+    if num > 5
+      puts num
+    end
+  end
+end
+
+-------------------------------------------------------------------------------------------------------
+Line    Action        Object           Side Effect      Return Value               Is Return Value Used?
+-------------------------------------------------------------------------------------------------------
+48      assignment    na/               None             [[18, 7], [3, 12]]            No
+        (my_arr)
+
+48      method call   outer array      None             The calling object:      yes it is used in my_arr
+        (each )                                          [[18, 7], [3, 12]]
+
+48-54   Block         each sub-array   None             each sub array        No but it is output on final line
+        execution   
+
+49      Method call   each sub-array   None             each element of           yes it is used by conditiona/puts
+        (each)                                          sub array 
+
+50      Condtional    each element     None             elements > 5              yes used by puts  
+                      of sub array 
+
+51      Method call   elements > 5    outs a string     nil                       yes used to               
+        puts                          represenation                               determine 
+                                      of an integer                               return value
+                                                                                  of block 
+--------------------------------------------------------------------------------------------------------------------
+
+==========
+EXAMPLE 5
+==========
+
+[[1, 2], [3, 4]].map do |arr|
+  arr.map do |num|
+    num * 2
+  end
+end
+
+-------------------------------------------------------------------------------------------------------
+Line    Action        Object           Side Effect      Return Value               Is Return Value Used?
+-------------------------------------------------------------------------------------------------------
+
+84      method        original array      none          new transformed array      No but is returned on final line
+        call (map)
+
+84-88   outer block   each sub-array   none             new transformed array      yes used first map for transform
+        execution 
+
+85      method(call)  each sub-array   none             new transformed array      yes, return value outer block
+
+85-87   Inner block   each element     None             integer                    yes, inner map for transform 
+        execution     of sub-array
+                      of current
+                      iteration 
+
+86      mult (*)       n/a             None             element * 2                 yes it is used to determine
+                                                                                    the value of the inner block
+                     
+-------------------------------------------------------------------------------------------------------
+
+==========
+Example 6
+==========
+
+[{ a: 'ant', z: 'zlephant' }, { c: 'cat' }].select do |hash|
+  hash.all? do |key, value|
+    value[0] == key.to_s
+  end
+end
+# => [{ :c => "cat" }]
+
+------------------------------------------------------------------------------------------------------------------
+Line    Action        Object           Side Effect      Return Value               Is Return Value Used?
+------------------------------------------------------------------------------------------------------------------
+116     Method        outer array      no              new array of selections    No, but returned on final line
+        call (select)
+
+116-20   outer-block  each sub-hash    no              new array of selections    yes, for first selection 
+         execution 
+
+117     method        each sub-hash    no              boolean                    yes, to determine outer block rv 
+        call (all)
+
+117-19  inner-block  each key/value    no              boolean                    yes to determine out block rv
+        execution    of sub-hash 
+
+118    compare (==)  each key?value    no              boolean                   yes to determine inner-block 
+                     of sub-has                                                  execution 
+--------------------------------------------------------------------------------------------------------------------
+==========
+Example 10
+==========
+
+
+[[[1, 2], [3, 4]], [5, 6]].map do |arr|
+  arr.map do |el|
+    if el.to_s.size == 1    el + 1 
+      el + 1
+    else                    
+      el.map do |n|         [el + 1]
+        n + 1
+      end
+    end
+  end
+end
+
+[[[2, 3], [4, 5]], [6, 7]]
+
+----------------------------
+
+[['a', 'b'], ['c', 'd'], ['e', 'f']].map do |sub_arr|
+  sub_arr.map do |letter|
+    letter.upcase
+  end
+end
+
+------------------------------------------------------------------------------------------------------------------
+Line    Action        Object           Side Effect      Return Value               Is Return Value Used?
+------------------------------------------------------------------------------------------------------------------
+162     Method        outer array      no             [[]] new array                No, but returned on final line
+        call (map)
+
+162-66  outer-block  each sub-array   no              new array                  yes, for first map
+         execution 
+
+163     method        each sub-array    no             new array                   yes, to determine outer block rv 
+        call (map)
+
+163-65  inner-block  each array elment     no          new array of each sub array                  yes to determine out block rv
+        execution     
+
+118    upcase       each element    no              up.case of each elemnt                 yes to determine inner-block 
+                                                                       execution 
+--------------------------------------------------------------------------------------------------------------------
+
+
+
+
+customer_orders = [
+  {
+    customer_id: 12,
+    customer_name: 'Emma Lopez',
+    orders: [
+      { order_fulfilled: true, order_value: 135.99 },
+      { order_fulfilled: true, order_value: 289.49 },
+      { order_fulfilled: false, order_value: 58.00 }
+    ]
+  },
+  {
+    customer_id: 32,
+    customer_name: 'Michael Richards',
+    orders: [
+      { order_fulfilled: true, order_value: 120.00 },
+      { order_fulfilled: false, order_value: 85.65 }
+    ]
+  },
+  # rest of data...
+]
+
+fulfilled_orders = customer_orders.map do |customer|
+  {
+    customer_id: customer[:customer_id],
+    customer_name: customer[:customer_name]
+  }
+end
+
+customer_orders.each_with_index do |data, index|
+  order_value = data[:orders].reduce(0) do |total, order|
+     if order[:order_fulfilled] 
+       total + order[:order_value] 
+     end 
+  end
+
+  fulfilled_orders[index][:order_value] = order_value
+end

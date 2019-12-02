@@ -21,10 +21,22 @@ ary[2, 3][0] => 'c'
 
 .fetch(array) (Tries to return the element at position index, but throws an IndexError exception if the referenced index lies outside of the array bounds.)
 
+sorting
+=======
+sort
+sort_by
+min
+max
+minmax
+min_by
+max_by
+minmax_by
 
 .sort_by
 
 .each_char
+
+.zip
 
 .scan
 
