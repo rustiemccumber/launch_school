@@ -1,0 +1,23 @@
+types of errors:
+-syntax errors
+  - generally stops you code from functioning 
+-logical errors 
+
+what is pry
+ -pry is a REPL
+  -Read Evaluate Print Loop
+
+pry features
+- you can call pry directly in terminal and us it like irb
+  -however pry has more features than irb
+    - you can cd into objects (cd arr)
+      - if you type "ls" when within object it will display methods available to that object
+      - if you type "show-doc" followed by the method (ex. "show-doc map") it will give you documentation 
+      about the method 
+-whereami
+
+pry-byebug
+- extends pry with some additional commands
+  - next
+  - step
+  - continue s
