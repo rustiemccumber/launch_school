@@ -39,7 +39,6 @@ def substrings_at_start(string)
   end
 end
 
-=begin
 def substrings(string)
   new_array = []
   0.upto(string.size - 1) do |count|
@@ -49,16 +48,9 @@ def substrings(string)
 end 
 
 p substrings('abcde')
-=end
 
-def substrings(string)
 
-  string.chars.each_with_index do |char, position|
-    p position
-  end
-end 
 
-p substrings('abcde')
 
 
  

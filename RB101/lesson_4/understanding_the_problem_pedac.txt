@@ -1,0 +1,41 @@
+# PROBLEM:
+
+# Given a string, write a method `palindrome_substrings` which returns
+# all the substrings from a given string which are palindromes. Consider
+# palindrome words case sensitive.
+
+# Test cases:
+
+# palindrome_substrings("supercalifragilisticexpialidocious") == ["ili"]
+# palindrome_substrings("abcddcbA") == ["bcddcb", "cddc", "dd"]
+# palindrome_substrings("palindrome") == []
+# palindrome_substrings("") == []
+
+PEDAC = [understand the ] Problem, Examples/Test Cases, Data structure, Algorithm, Code
+
+[understand the problem]
+
+1. What is a palindrome? 
+
+2. what is a substring 
+
+3. should I deal with empty strings provided as input? see exaple case 3
+
+4. Can I assume that all inputs are strings? Test cases don't show any non-string inputs, so you should ask whether the inputs can contain non-string values, and what you should do with them. In this problem, we won't worry about non-string values.
+
+5. Should I consider letter case when deciding whether a word is a palindrome? palindromes ARE case sensitive in this problem. 
+
+6.
+
+7. will inputs always be strings
+
+
+Always verify your assumptions either by looking at the test cases or by asking the interviewer. 
+
+# input: string
+# output: return array of all the subtrings which are palindromes in the given string
+# rules:
+#      Explicit requirements:
+#        - substrings must be returned to an array 
+#        - return only substrings which are case sensitive
+#        - Palindromes are case sensitive ("Dad" is not a palindrome, but "dad" is.)

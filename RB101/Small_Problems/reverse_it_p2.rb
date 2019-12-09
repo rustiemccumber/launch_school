@@ -30,7 +30,6 @@ def reverse_words(input)
     end
   end
  new_sentence.join(" ")
-
 end
 
 
