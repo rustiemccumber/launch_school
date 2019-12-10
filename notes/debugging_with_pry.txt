@@ -20,4 +20,4 @@ pry-byebug
 - extends pry with some additional commands
   - next
   - step
-  - continue s
+  - continue 
