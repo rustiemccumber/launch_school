@@ -139,16 +139,17 @@ end
 
 def display_dealer_cards(dealer_deck)
   system "clear"
-  puts "dealer has #{dealer_deck[0]} and unknown card"
+  "dealer has #{dealer_deck[0]} and unknown card"
 end 
 
 def display_all_cards_of_hand(input_hand)
-  puts "you have #{join_and(input_hand)}"
+  "#{join_and(input_hand)}"
 end
 
 def player_hit_stay
   hit_stay = ''
   loop do 
+    puts ""
     prompt "would you like to hit or stay (type 'h' or 's')"
     hit_stay = gets.chomp.downcase
     break if ['h', 's'].include?(hit_stay)
@@ -209,7 +210,6 @@ def display_result(dealer_cards, player_cards, deck)
   end
 end
 
-
 def play_again?
   puts "-------------"
   prompt "Do you want to play again? (y or n)"
@@ -219,36 +219,40 @@ end
 
 
 loop do 
-   cards = card_deck 
-   dealer_hand = []
-   player_hand = []
+  cards = card_deck
+  cards.each {|key, value| value[1] = 4}
+  dealer_hand = []
+  player_hand = []
+
   loop do 
     2.times {deal_to_dealer(dealer_hand, cards)}
     2.times {deal_to_player(player_hand, cards)}
     #binding.pry
-    display_dealer_cards(dealer_hand)
-    display_all_cards_of_hand(player_hand)
+    puts display_dealer_cards(dealer_hand)
+    puts "you have #{display_all_cards_of_hand(player_hand)} (score :  #{check_score(player_hand, cards)})"
     
+    puts " "
     puts "player turn..."
-
+    hit_stay = ''
     loop do 
       hit_stay = player_hit_stay 
       break if hit_stay == 's'
       puts "player hit"
       deal_to_player(player_hand, cards)
-      display_dealer_cards(dealer_hand)
-      display_all_cards_of_hand(player_hand)
+      puts display_dealer_cards(dealer_hand)
+      puts "you have #{display_all_cards_of_hand(player_hand)} (score: #{check_score(player_hand, cards)})" 
       break if check_bust(player_hand, cards)
     end
 
     break if check_bust(player_hand, cards)
 
-    puts "dealer turn"
+    puts " "
+    puts "dealer turn..."
     loop do 
       if check_bust(dealer_hand, cards)
         break 
       elsif check_score(dealer_hand, cards) >= 17 
-        puts "dealer stayed with #{display_all_cards_of_hand(dealer_hand)}"
+        puts "dealer stayed with #{display_all_cards_of_hand(dealer_hand)} (score: #{check_score(dealer_hand, cards)})"
         break
       else 
         puts "dealer hit"
@@ -260,15 +264,14 @@ loop do
     break
   
   end 
-
   display_result(dealer_hand, player_hand, cards)
   puts ""
   puts "=============="
-  puts "Player has #{player_hand}, for a total of: #{check_score(player_hand, cards)}"
-  puts "Dealer has #{dealer_hand}, for a total of: #{check_score(dealer_hand, cards)}"
+  puts "Player has #{display_all_cards_of_hand(player_hand)}, for a total of: #{check_score(player_hand, cards)}"
+  puts "Dealer has #{display_all_cards_of_hand(dealer_hand)}, for a total of: #{check_score(dealer_hand, cards)}"
   puts "=============="
   puts ""
+  binding.pry
 
   break unless play_again? 
-
 end 
