@@ -1,4 +1,5 @@
-
+# rubocop: disable Metrics/LineLength
+# rubocop: disable Style/TrailingWhitespace
 # Rules of Twenty-One
 # You start with a normal 52-card deck consisting of the 4 suits (hearts, diamonds, clubs,
 #  and spades), and 13 values (2, 3, 4, 5, 6, 7, 8, 9, 10, jack, queen, king, ace).
@@ -38,7 +39,7 @@
 # follow a strict rule for determining whether to hit or stay: hit until the total is at least 17. 
 # If the dealer busts, then the player wins. Comparing cards: when both the player and the dealer stay,
 #  it's time to compare the total value of the cards and see who has the highest value.
-
+# rubocop enable
 =begin 
 algorithm 
   1. Initialize deck
@@ -69,6 +70,8 @@ algorithm
   6. If dealer bust, player wins.
   7. Compare cards and declare winner. 
     - winner <= 21 but > other player 
+# rubocop: enable Metrics/LineLength
+# rubocop: enable Style/TrailingWhitespace
 =end 
 require 'pry'
 require 'pry-byebug'
@@ -143,7 +146,7 @@ def display_dealer_cards(dealer_deck)
 end 
 
 def display_all_cards_of_hand(input_hand)
-  "#{join_and(input_hand)}"
+   join_and(input_hand)
 end
 
 def player_hit_stay
@@ -158,7 +161,7 @@ def player_hit_stay
   hit_stay 
 end 
 
-def check_score(input_hand, deck )
+def check_score(input_hand, deck)
   input_hand_values = input_hand.map { |card| deck[card][0] }
   aces_count = input_hand.count('ace')
   score_total = input_hand_values.inject(:+)
@@ -176,7 +179,6 @@ def check_bust(input_hand, deck)
 end 
 
 def detect_results(dealer_cards, player_cards, deck)
-
   player_total = check_score(player_cards, deck)
   dealer_total = check_score(dealer_cards, deck)
 
@@ -194,7 +196,7 @@ def detect_results(dealer_cards, player_cards, deck)
 end 
 
 def display_result(dealer_cards, player_cards, deck)
-  result = detect_results(dealer_cards, player_cards, deck )
+  result = detect_results(dealer_cards, player_cards, deck)
 
   case result
   when :player_busted
@@ -217,17 +219,16 @@ def play_again?
   answer.downcase.start_with?('y')
 end
 
-
 loop do 
-  cards = card_deck
-  cards.each {|key, value| value[1] = 4}
+  puts "Welcome to Twenty-One! Good luck!"
+  cards = card_deck 
+  cards.each { |value| value[1] = 4 }
   dealer_hand = []
   player_hand = []
 
   loop do 
-    2.times {deal_to_dealer(dealer_hand, cards)}
-    2.times {deal_to_player(player_hand, cards)}
-    #binding.pry
+    2.times { deal_to_dealer(dealer_hand, cards) }
+    2.times { deal_to_player(player_hand, cards) }
     puts display_dealer_cards(dealer_hand)
     puts "you have #{display_all_cards_of_hand(player_hand)} (score :  #{check_score(player_hand, cards)})"
     
@@ -271,7 +272,8 @@ loop do
   puts "Dealer has #{display_all_cards_of_hand(dealer_hand)}, for a total of: #{check_score(dealer_hand, cards)}"
   puts "=============="
   puts ""
-  binding.pry
 
   break unless play_again? 
 end 
+
+puts "Thank you for playing!"
