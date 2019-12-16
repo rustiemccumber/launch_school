@@ -1,3 +1,4 @@
+
 # Rules of Twenty-One
 # You start with a normal 52-card deck consisting of the 4 suits (hearts, diamonds, clubs,
 #  and spades), and 13 values (2, 3, 4, 5, 6, 7, 8, 9, 10, jack, queen, king, ace).
@@ -40,7 +41,6 @@
 
 =begin 
 algorithm 
-
   1. Initialize deck
   2. Deal cards to player and dealer
     - randomly select two cards to dealer 
@@ -50,7 +50,6 @@ algorithm
     - display
       - show one of the dealers to cards to the player 
       - show the player there cards
-
   3. Player turn: promt the user if they would like to hit or stay
     - loop do
        prompt the user if they would like to hit or stay
@@ -58,23 +57,27 @@ algorithm
        hit if "hit"
        display player cards and display one of dealers crads
        break if "bust"
+  4. check aces 
+    -count the amount of aces in the input had
+    -intitally count aces as 11
+    -sum total_hand_score
+    - until total_hand_score <= 21 
+      + -10, do this count aces. times or if total_score <= 21
   4. If player bust, dealer wins.
   5. Dealer turn: hit or stay
     - repeat until total >= 17
   6. If dealer bust, player wins.
   7. Compare cards and declare winner. 
     - winner <= 21 but > other player 
-
-
 =end 
 require 'pry'
 require 'pry-byebug'
 
 card_deck = {
-  'Queen' => [10, 4],
-  'King' => [10, 4],
-  'Jack' => [10, 4],
-  'Ace' => [1, 11, 4],
+  'queen' => [10, 4],
+  'king' => [10, 4],
+  'jack' => [10, 4],
+  'ace' => [11, 4],
   '2' => [2, 4],
   '3' => [3, 4],
   '4' => [4, 4],
@@ -96,8 +99,15 @@ def join_and(array, sep = ', ', word = 'and')
   elsif array.size == 2
     array.join(" #{word} ")
   else
-    array[-1] = "#{word} #{array.last}"
-    array.join("#{sep}")
+    line_length = array.length 
+    sentence = array.map.with_index do |card, index|
+      if index == (line_length - 1)
+        "#{word} #{card}" 
+      else 
+        card
+      end
+    end 
+    sentence.join(sep) 
   end
 end
 
@@ -106,17 +116,13 @@ def deal_cards(deck)
     select_card = deck.keys.sample
     if deck[select_card].last > 0 
       return select_card
-      break 
     end
+    break 
   end 
 end
 
 def track_cards(deck, dealt)
-  if dealt == 'Ace'
-    deck[dealt][2] -= 1
-  else
-    deck[dealt][1] -= 1
-  end
+  deck[dealt][1] -= 1
 end 
 
 def deal_to_dealer(to_dealer, deck)
@@ -132,54 +138,137 @@ def deal_to_player(to_player, deck)
 end 
 
 def display_dealer_cards(dealer_deck)
+  system "clear"
   puts "dealer has #{dealer_deck[0]} and unknown card"
 end 
 
-def display_player_cards(player_deck)
-  puts "you have #{join_and(player_deck, sep = ', ', word = 'and')}"
+def display_all_cards_of_hand(input_hand)
+  puts "you have #{join_and(input_hand)}"
 end
 
 def player_hit_stay
-  prompt "would you like to hit or stay (type h or s)"
-  answer = gets.chomp 
+  hit_stay = ''
+  loop do 
+    prompt "would you like to hit or stay (type 'h' or 's')"
+    hit_stay = gets.chomp.downcase
+    break if ['h', 's'].include?(hit_stay)
+    prompt "that was not a valid input, please type 'h' or 's'"
+  end 
+  hit_stay 
+end 
+
+def check_score(input_hand, deck )
+  input_hand_values = input_hand.map { |card| deck[card][0] }
+  aces_count = input_hand.count('ace')
+  score_total = input_hand_values.inject(:+)
+
+  until score_total <= 21
+    break if aces_count == 0
+    score_total -= 10 
+    aces_count -= 1
+  end
+  score_total 
 end 
 
 def check_bust(input_hand, deck)
-  hand_total = 0
-  input_hand.each { |card| hand_total += deck[card][0] }
-  if hand_total > 21 
-   return true
-  end
-  nil 
+  check_score(input_hand, deck) > 21 
 end 
 
+def detect_results(dealer_cards, player_cards, deck)
+
+  player_total = check_score(player_cards, deck)
+  dealer_total = check_score(dealer_cards, deck)
+
+  if player_total > 21
+    :player_busted
+  elsif dealer_total > 21
+    :dealer_busted
+  elsif dealer_total < player_total
+    :player
+  elsif dealer_total > player_total
+    :dealer
+  else
+    :tie
+  end
+end 
+
+def display_result(dealer_cards, player_cards, deck)
+  result = detect_results(dealer_cards, player_cards, deck )
+
+  case result
+  when :player_busted
+    puts "You busted! Dealer wins!"
+  when :dealer_busted
+    puts "Dealer busted! You win!"
+  when :player
+    puts "You win!"
+  when :dealer
+    puts "Dealer wins!"
+  when :tie
+    puts "It's a tie!"
+  end
+end
+
+
+def play_again?
+  puts "-------------"
+  prompt "Do you want to play again? (y or n)"
+  answer = gets.chomp
+  answer.downcase.start_with?('y')
+end
+
+
+loop do 
+   cards = card_deck 
+   dealer_hand = []
+   player_hand = []
   loop do 
-    cards = card_deck 
-    dealer_hand = []
-    player_hand = []
     2.times {deal_to_dealer(dealer_hand, cards)}
     2.times {deal_to_player(player_hand, cards)}
     #binding.pry
     display_dealer_cards(dealer_hand)
-    display_player_cards(player_hand)
+    display_all_cards_of_hand(player_hand)
     
+    puts "player turn..."
+
     loop do 
-      #binding.pry 
       hit_stay = player_hit_stay 
       break if hit_stay == 's'
+      puts "player hit"
       deal_to_player(player_hand, cards)
       display_dealer_cards(dealer_hand)
-      display_player_cards(player_hand)
-      puts "you busted" if check_bust(player_hand, cards)
+      display_all_cards_of_hand(player_hand)
       break if check_bust(player_hand, cards)
-    end 
+    end
+
+    break if check_bust(player_hand, cards)
+
+    puts "dealer turn"
+    loop do 
+      if check_bust(dealer_hand, cards)
+        break 
+      elsif check_score(dealer_hand, cards) >= 17 
+        puts "dealer stayed with #{display_all_cards_of_hand(dealer_hand)}"
+        break
+      else 
+        puts "dealer hit"
+        deal_to_dealer(dealer_hand, cards)
+        puts "dealer new hand #{display_all_cards_of_hand(dealer_hand)}"
+      end 
+    end
 
     break
+  
   end 
 
+  display_result(dealer_hand, player_hand, cards)
+  puts ""
+  puts "=============="
+  puts "Player has #{player_hand}, for a total of: #{check_score(player_hand, cards)}"
+  puts "Dealer has #{dealer_hand}, for a total of: #{check_score(dealer_hand, cards)}"
+  puts "=============="
+  puts ""
 
+  break unless play_again? 
 
-
-
-
-
+end 
