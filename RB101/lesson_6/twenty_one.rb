@@ -289,6 +289,8 @@ def check_grand_winner(score_board)
   nil 
 end 
 
+# ==================== game loop =====================================
+
 loop do 
   system 'clear'
   puts "Welcome to Twenty-One! Good luck!"
