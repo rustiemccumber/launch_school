@@ -126,6 +126,8 @@ score_board = {
 }
 
 ROUNDS = 5
+WINNING_SCORE = 21
+DEALER_STAY = 17 
 
 def prompt(msg)
   puts "=> #{msg}"
@@ -151,12 +153,17 @@ end
 
 def deal_cards(player_input_hand, dealer_input_hand, deck)
   select_card = deck.keys.sample 
-  until (player_input_hand + dealer_input_hand).count(select_card) != 4
-    select_card
-  end 
+  verify_card = (player_input_hand + dealer_input_hand).count(select_card)
+  loop do
+    if verify_card != 4
+      break 
+    elsif verify_card == 4
+      select_card = deck.keys.sample
+    end
+  end
   select_card
 end
-
+ 
 def deal_to_dealer(player_input_hand, dealer_input_hand, deck)
   deal = deal_cards(player_input_hand, dealer_input_hand, deck) 
   dealer_input_hand << deal 
@@ -192,7 +199,7 @@ def check_score(input_hand, deck)
   aces_count = input_hand.count('ace')
   score_total = input_hand_values.sum
 
-  until score_total <= 21
+  until score_total <= WINNING_SCORE
     break if aces_count == 0
     score_total -= 10 
     aces_count -= 1
@@ -201,13 +208,13 @@ def check_score(input_hand, deck)
 end 
 
 def check_bust(total)
-  total > 21 
+  total > WINNING_SCORE 
 end 
 
 def detect_results(dealer_total, player_total)
-  if player_total > 21
+  if player_total > WINNING_SCORE
     :player_busted
-  elsif dealer_total > 21
+  elsif dealer_total > WINNING_SCORE
     :dealer_busted
   elsif dealer_total < player_total
     :player
@@ -243,15 +250,15 @@ def play_again?
 end
 
 def end_round_output(player_input_hand, dealer_input_hand, player_total, dealer_total)
-     puts ""
-    puts "=============="
-    puts "Player has #{display_all_cards_of_hand(player_input_hand)}, for a total of: #{player_total}"
-    puts "Dealer has #{display_all_cards_of_hand(dealer_input_hand)}, for a total of: #{dealer_total}"
-    puts "=============="
-    puts ""
+  puts ""
+  puts "=============="
+  puts "Player has #{display_all_cards_of_hand(player_input_hand)}, for a total of: #{player_total}"
+  puts "Dealer has #{display_all_cards_of_hand(dealer_input_hand)}, for a total of: #{dealer_total}"
+  puts "=============="
+  puts ""
 end 
 
-def update_scoreboard(dealer_total, player_total,score_board)
+def update_scoreboard(dealer_total, player_total, score_board)
   result = detect_results(dealer_total, player_total)
 
   case result
@@ -267,8 +274,10 @@ def update_scoreboard(dealer_total, player_total,score_board)
 end
 
 def display_scoreboard(scoreboard)
+  puts ""
   puts "player_score: #{scoreboard[:player_score]}" 
   puts "dealer_score: #{scoreboard[:dealer_score]}"
+  puts ""
 end 
 
 def check_grand_winner(score_board)
@@ -333,7 +342,7 @@ loop do
     loop do 
       if check_bust(dealer_score)
         break 
-      elsif dealer_score >= 17
+      elsif dealer_score >= DEALER_STAY
         puts "dealer stayed with #{display_all_cards_of_hand(dealer_hand)} (score: #{dealer_score})"
         break
       else 
@@ -358,7 +367,7 @@ loop do
   
   update_scoreboard(dealer_score, player_score, score_board)
   display_scoreboard(score_board) if check_grand_winner(score_board)
-  puts "#{check_grand_winner(score_board)}" if check_grand_winner(score_board)
+  puts check_grand_winner(score_board) if check_grand_winner(score_board)
   break if check_grand_winner(score_board)
   break unless play_again? 
 end 
