@@ -120,6 +120,13 @@ card_deck = {
   '10' => 10
 }
 
+score_board = {
+  dealer_score: 0,
+  player_score: 0
+}
+
+ROUNDS = 5
+
 def prompt(msg)
   puts "=> #{msg}"
 end 
@@ -161,7 +168,6 @@ def deal_to_player(player_input_hand, dealer_input_hand, deck)
 end 
 
 def display_dealer_cards(dealer_deck)
-  system "clear"
   "dealer has #{dealer_deck[0]} and unknown card"
 end 
 
@@ -194,14 +200,11 @@ def check_score(input_hand, deck)
   score_total 
 end 
 
-def check_bust(input_hand, deck)
-  check_score(input_hand, deck) > 21 
+def check_bust(total)
+  total > 21 
 end 
 
-def detect_results(dealer_cards, player_cards, deck)
-  player_total = check_score(player_cards, deck)
-  dealer_total = check_score(dealer_cards, deck)
-
+def detect_results(dealer_total, player_total)
   if player_total > 21
     :player_busted
   elsif dealer_total > 21
@@ -215,8 +218,8 @@ def detect_results(dealer_cards, player_cards, deck)
   end
 end 
 
-def display_result(dealer_cards, player_cards, deck)
-  result = detect_results(dealer_cards, player_cards, deck)
+def display_result(dealer_total, player_total)
+  result = detect_results(dealer_total, player_total)
 
   case result
   when :player_busted
@@ -234,65 +237,129 @@ end
 
 def play_again?
   puts "-------------"
-  prompt "Do you want to play again? (y or n)"
+  prompt "Do you want to play again for grand winner? (y or n)"
   answer = gets.chomp
   answer.downcase.start_with?('y')
 end
 
+def end_round_output(player_input_hand, dealer_input_hand, player_total, dealer_total)
+     puts ""
+    puts "=============="
+    puts "Player has #{display_all_cards_of_hand(player_input_hand)}, for a total of: #{player_total}"
+    puts "Dealer has #{display_all_cards_of_hand(dealer_input_hand)}, for a total of: #{dealer_total}"
+    puts "=============="
+    puts ""
+end 
+
+def update_scoreboard(dealer_total, player_total,score_board)
+  result = detect_results(dealer_total, player_total)
+
+  case result
+  when :player_busted
+    score_board[:dealer_score] += 1
+  when :dealer_busted
+    score_board[:player_score] += 1
+  when :player
+    score_board[:player_score] += 1
+  when :dealer
+    score_board[:dealer_score] += 1
+  end
+end
+
+def display_scoreboard(scoreboard)
+  puts "player_score: #{scoreboard[:player_score]}" 
+  puts "dealer_score: #{scoreboard[:dealer_score]}"
+end 
+
+def check_grand_winner(score_board)
+  if score_board[:player_score] == ROUNDS
+    return "you are the grand winner!" 
+  elsif score_board[:dealer_score] == ROUNDS
+    return "the dealer is the grand winner!" 
+  end 
+  nil 
+end 
+
 loop do 
+  system 'clear'
   puts "Welcome to Twenty-One! Good luck!"
+  puts "The first to win #{ROUNDS} wins"
+  display_scoreboard(score_board)
+  puts "---------------------------------"
+  puts ""
   cards = card_deck
   dealer_hand = []
   player_hand = []
+  player_score = 0
+  dealer_score = 0 
 
   loop do 
     2.times { deal_to_dealer(player_hand, dealer_hand, cards) }
     2.times { deal_to_player(player_hand, dealer_hand, cards) }
+    player_score = check_score(player_hand, cards)
+    dealer_score = check_score(dealer_hand, cards)
     puts display_dealer_cards(dealer_hand)
-    puts "you have #{display_all_cards_of_hand(player_hand)} (score :  #{check_score(player_hand, cards)})"
+    puts "you now have #{display_all_cards_of_hand(player_hand)} (score :  #{player_score})"
     
-    puts " "
-    puts "player turn..."
     hit_stay = ''
-    loop do 
+    loop do
+      puts " "
+      puts "player turn..."
+      puts "-------------------"
       hit_stay = player_hit_stay 
-      break if hit_stay == 's'
-      puts "player hit"
+      break if hit_stay == "s"
       deal_to_player(player_hand, dealer_hand, cards)
+      player_score = check_score(player_hand, cards)
+      system 'clear'
+      puts "player hit"
       puts display_dealer_cards(dealer_hand)
-      puts "you have #{display_all_cards_of_hand(player_hand)} (score: #{check_score(player_hand, cards)})" 
-      break if check_bust(player_hand, cards)
+      puts "you now have #{display_all_cards_of_hand(player_hand)} (score: #{player_score})" 
+      break if check_bust(player_score)
     end
-
-    break if check_bust(player_hand, cards)
+    
+    if hit_stay == "s"
+      system 'clear'
+      puts "player stayed with #{display_all_cards_of_hand(player_hand)} (score: #{player_score})"
+    end 
+    if check_bust(player_score)
+      end_round_output(player_hand, dealer_hand, player_score, dealer_score)
+      display_result(dealer_score, player_score)
+      break
+    end 
 
     puts " "
     puts "dealer turn..."
+    puts "-------------------"
     loop do 
-      if check_bust(dealer_hand, cards)
+      if check_bust(dealer_score)
         break 
-      elsif check_score(dealer_hand, cards) >= 17 
-        puts "dealer stayed with #{display_all_cards_of_hand(dealer_hand)} (score: #{check_score(dealer_hand, cards)})"
+      elsif dealer_score >= 17
+        puts "dealer stayed with #{display_all_cards_of_hand(dealer_hand)} (score: #{dealer_score})"
         break
       else 
         puts "dealer hit"
         deal_to_dealer(player_hand, dealer_hand, cards)
+        dealer_score = check_score(dealer_hand, cards)
         puts "dealer new hand #{display_all_cards_of_hand(dealer_hand)}"
       end 
     end
+    
+    if check_bust(dealer_score)
+      end_round_output(player_hand, dealer_hand, player_score, dealer_score)
+      display_result(dealer_score, player_score)
+      break
+    end 
+    
+    end_round_output(player_hand, dealer_hand, player_score, dealer_score)
+    display_result(dealer_score, player_score)
 
-    break
-  
+    break 
   end 
-  display_result(dealer_hand, player_hand, cards)
-  puts ""
-  puts "=============="
-  puts "Player has #{display_all_cards_of_hand(player_hand)}, for a total of: #{check_score(player_hand, cards)}"
-  puts "Dealer has #{display_all_cards_of_hand(dealer_hand)}, for a total of: #{check_score(dealer_hand, cards)}"
-  puts "=============="
-  puts ""
-
+  
+  update_scoreboard(dealer_score, player_score, score_board)
+  display_scoreboard(score_board) if check_grand_winner(score_board)
+  puts "#{check_grand_winner(score_board)}" if check_grand_winner(score_board)
+  break if check_grand_winner(score_board)
   break unless play_again? 
 end 
-
 puts "Thank you for playing!"
