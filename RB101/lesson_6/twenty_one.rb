@@ -45,19 +45,23 @@ algorithm
   1. Initialize deck
   2. Deal cards to player and dealer
     - randomly select two cards to dealer 
-      - subtract the two cards from the deck 
+      + subtract the two cards from the deck 
     - randomly select two cards from the remainder of deck and dealer to player
-      - subtract the two cards from the deck 
+      + subtract the two cards from the deck 
     - display
-      - show one of the dealers to cards to the player 
-      - show the player there cards
-  3. Player turn: promt the user if they would like to hit or stay
+      + show one of the dealers to cards to the player 
+      + show the player their cards
+  2.5 subtracting from the deck 
+    - randomly select a card from the deck of all cards
+    - view both the players hands and dealers hand
+      + if the (player_hand + dealer_hand).count(current_card) == 4 select other card
+  3. Player turn: prompt the user if they would like to hit or stay
     - loop do
-       prompt the user if they would like to hit or stay
-       break if stay
-       hit if "hit"
-       display player cards and display one of dealers crads
-       break if "bust"
+       + prompt the user if they would like to hit or stay
+       + break if stay
+       + hit if "hit"
+       + display player cards and display one of dealers crads
+       + break if "bust"
   4. check aces 
     -count the amount of aces in the input had
     -intitally count aces as 11
@@ -66,10 +70,34 @@ algorithm
       + -10, do this count aces. times or if total_score <= 21
   4. If player bust, dealer wins.
   5. Dealer turn: hit or stay
-    - repeat until total >= 17
+    loop do 
+     - stay if dealer_score >= 17
+     - hit if dealer_score <= 17
+     - break if dealer_bust
   6. If dealer bust, player wins.
   7. Compare cards and declare winner. 
-    - winner <= 21 but > other player 
+    - player win = player > dealer
+    - dealer win = player < dealer
+    - tie:  play_score = dealer_score
+    - player bust = player > 21
+    - dealer bust = dealer > 21
+
+card_deck = {
+  'queen' => 10,
+  'king' =>  10,
+  'jack' =>  10,
+  'ace' =>  11,
+  '2' =>  2,
+  '3' =>  3,
+  '4' =>  4,
+  '5' =>  5,
+  '6' =>  6,
+  '7' =>  7,
+  '8' =>  8,
+  '9' =>  9,
+  '10' => 10,
+}
+
 # rubocop: enable Metrics/LineLength
 # rubocop: enable Style/TrailingWhitespace
 =end 
@@ -77,19 +105,19 @@ require 'pry'
 require 'pry-byebug'
 
 card_deck = {
-  'queen' => [10, 4],
-  'king' => [10, 4],
-  'jack' => [10, 4],
-  'ace' => [11, 4],
-  '2' => [2, 4],
-  '3' => [3, 4],
-  '4' => [4, 4],
-  '5' => [5, 4],
-  '6' => [6, 4],
-  '7' => [7, 4],
-  '8' => [8, 4],
-  '9' => [9, 4],
-  '10' => [10, 4]
+  'queen' => 10,
+  'king' => 10,
+  'jack' => 10,
+  'ace' => 11,
+  '2' => 2,
+  '3' => 3,
+  '4' => 4,
+  '5' => 5,
+  '6' => 6,
+  '7' => 7,
+  '8' => 8,
+  '9' => 9,
+  '10' => 10
 }
 
 def prompt(msg)
@@ -114,30 +142,22 @@ def join_and(array, sep = ', ', word = 'and')
   end
 end
 
-def deal_cards(deck)
-  loop do 
-    select_card = deck.keys.sample
-    if deck[select_card].last > 0 
-      return select_card
-    end
-    break 
+def deal_cards(player_input_hand, dealer_input_hand, deck)
+  select_card = deck.keys.sample 
+  until (player_input_hand + dealer_input_hand).count(select_card) != 4
+    select_card
   end 
+  select_card
 end
 
-def track_cards(deck, dealt)
-  deck[dealt][1] -= 1
+def deal_to_dealer(player_input_hand, dealer_input_hand, deck)
+  deal = deal_cards(player_input_hand, dealer_input_hand, deck) 
+  dealer_input_hand << deal 
 end 
 
-def deal_to_dealer(to_dealer, deck)
-  deal = deal_cards(deck) 
-  to_dealer << deal 
-  track_cards(deck, deal)
-end 
-
-def deal_to_player(to_player, deck)
-  deal = deal_cards(deck) 
-  to_player << deal 
-  track_cards(deck, deal)
+def deal_to_player(player_input_hand, dealer_input_hand, deck)
+  deal = deal_cards(player_input_hand, dealer_input_hand, deck) 
+  player_input_hand << deal 
 end 
 
 def display_dealer_cards(dealer_deck)
@@ -146,7 +166,7 @@ def display_dealer_cards(dealer_deck)
 end 
 
 def display_all_cards_of_hand(input_hand)
-   join_and(input_hand)
+  join_and(input_hand)
 end
 
 def player_hit_stay
@@ -162,9 +182,9 @@ def player_hit_stay
 end 
 
 def check_score(input_hand, deck)
-  input_hand_values = input_hand.map { |card| deck[card][0] }
+  input_hand_values = input_hand.map { |card| deck[card] }
   aces_count = input_hand.count('ace')
-  score_total = input_hand_values.inject(:+)
+  score_total = input_hand_values.sum
 
   until score_total <= 21
     break if aces_count == 0
@@ -221,14 +241,13 @@ end
 
 loop do 
   puts "Welcome to Twenty-One! Good luck!"
-  cards = card_deck 
-  cards.each { |value| value[1] = 4 }
+  cards = card_deck
   dealer_hand = []
   player_hand = []
 
   loop do 
-    2.times { deal_to_dealer(dealer_hand, cards) }
-    2.times { deal_to_player(player_hand, cards) }
+    2.times { deal_to_dealer(player_hand, dealer_hand, cards) }
+    2.times { deal_to_player(player_hand, dealer_hand, cards) }
     puts display_dealer_cards(dealer_hand)
     puts "you have #{display_all_cards_of_hand(player_hand)} (score :  #{check_score(player_hand, cards)})"
     
@@ -239,7 +258,7 @@ loop do
       hit_stay = player_hit_stay 
       break if hit_stay == 's'
       puts "player hit"
-      deal_to_player(player_hand, cards)
+      deal_to_player(player_hand, dealer_hand, cards)
       puts display_dealer_cards(dealer_hand)
       puts "you have #{display_all_cards_of_hand(player_hand)} (score: #{check_score(player_hand, cards)})" 
       break if check_bust(player_hand, cards)
@@ -257,7 +276,7 @@ loop do
         break
       else 
         puts "dealer hit"
-        deal_to_dealer(dealer_hand, cards)
+        deal_to_dealer(player_hand, dealer_hand, cards)
         puts "dealer new hand #{display_all_cards_of_hand(dealer_hand)}"
       end 
     end
