@@ -128,6 +128,8 @@ a.assoc(hash)
 
 .divmod
 
+.all?
+
 #{format('%02.2f', monthly_payment)}
 
 In Ruby, make sure to use snake_case when naming everything, except classes which are CamelCase or constants, which are all UPPERCASE.

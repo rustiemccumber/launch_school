@@ -1,0 +1,135 @@
+Be able to explain clearly the following topics:
+
+-local variable scope, especially how local variables interact with method invocations 
+  with blocks and method definitions
+-how passing an object into a method definition can or cannot permanently change the object
+-working with collections (Array, Hash, String), and popular collection methods (each, map, select, etc).
+ Review the two lessons on these topics thoroughly.
+-variables as pointers
+-puts vs return
+-false vs nil and the idea of "truthiness"
+-method definition and method invocation
+-implicit return value of method invocations and blocks
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+------------------------------
+Srdjan Coric Notes
+------------------------------
+  Advice for Ruby Programming Foundations Written Assessment (p1)
+
+  -use mark down `greeting`
+  -divide you answers into paragraphs. you will lose non-tech point for an answer that looks like one long paragraph
+  -Pay close attention to what each question is asking and keep your answers concise. For example, if the question is to explain how variable shadowing affects given code, then you should simply describe how variable shadowing is demonstrated in the code and what affect it has, with as much precision as possible.
+
+  learn to use programing terms
+
+  describe code:
+  --------------
+  a = 'hello'
+  b = a
+  a = 'goodbye'
+
+  description: 
+   
+  - on line 27 we are "initializing" the local variable 'a' and 'assigning' the string object with the value 'hello' to it.
+    + initialized: for the first time you assign a certain value to a local variable you are initializing it.
+
+  - on line 28 we are "initializing" the local variable 'b' and 'assigning' it to a local string object, 
+  which a is referecening. currently both local variables are pointing to the same object. 
+
+  - on line 29 local variable 'a' is reassigned to reference string object with value 'goodbye', so no the local variable a is pointing to string object with value "goodbye" and the local variable b is pointing to the string object with value "hello"
+
+  describe code:
+  -------------
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+-----------------
+Dalibor notes
+-----------------
+  Knowing is not enough: You need tactics too — How to be prepared for Launch School written assessments
+
+  1. whenver you use longer code (```) in the assesment form.  first run the code! copy and paste test this in your editor/irb , run the code and then copy and paste into assesment form.
+    - check for both syntatic and logical errors. run the code. creates exhaustive test cases if possible to cover edge cases.
+
+  2. Read assignments VERY CAREFULLY
+    - think first what the assignment wants you to do. Think about what knowledge it tests.
+    - identify what knowledge the assignments wants to test, and elaborate on that using key words ('local variables', 'classes', 'initialized')
+
+  3. all the subjects that are covered in the test are in the study guide (CREATE A REFERENCE GUIDE!!!!)
+
+    - explain all the concepts (write them out on a reference sheet)
+    - create examples to show the concepts in code
+      + think about some short code which will help the subject stand out and be comprehended
+
+  4. at the beginning of the assignment run through all the assignments and read them all 
+    - this will help deduce how much time to spend on one problem 
+    - some problems can take much longer than others and is obvious from reading 
+      + reading all head of time will let you know how many difficult problems are ahead and behind you.
+      + this is good information to load into your head for appropriate time planning
+      + this helps you evaluate the level of detail expected from the each problem, if there are 30 problems a much different level of detail is expected compared to 3.
+      + sometimes answers to parts of questions are found in the following question
+
+  5. Answer what assignments want you to answers. when in doubt aim for more 
+    - try to to be specific and focus on what you think the assignment wants you to focus on. 
+    - aim for more. if not absolutely sure that your answer will be understood, do more.
+    - everywhere use short examples to demonstrate your explainations. This will always help you evaluations, and if you technical language is inprecise this will help illustrate that you understand the concepts and just have poor inprecise language.
+
+  6. Go in order
+    - launchschool assesments are order logically warm-up to hard
+    - aim for explaining all the important parts of the problem, once finished moved to next
+      + if you have more time at the end you can go back and elaborate further if necessary 
+
+  7. Keep track of time and review in the end
+    - aim to have all assignments done 15 - 20 minutes before the time limite
+    - use 15 - 20 minutes remaining at the end to review common mistakes
+      + are my answers understandable? too complicated? ambiguous?
+      + do I answer all the specific points in the problem text?
+      + obvious mistakes or omissions in my answers
+      + try to format your responses in a better way so the keypoints stand out
+
+  8. recommended scheme 
+    1. orientation (quick run through all the questions (5 min))
+    2. READ CAREFULLY the problems, and complete the in order, using an appropriate amount of time for each
+    3. second round of deeper elaboration of your answers, or some of your answers, w/ remain time (optional)
+    4. Review (15 - 20)
+-----------------
+William
+-----------------
+  1. create a reference guide using mark down
+    - use Boostnotes(free) to create this reference guide in markdown 
+      + use this cheat sheat for writing in mark down:
+       (https://github.com/adam-p/markdown-here/wiki/Markdown-Here-Cheatsheet)
+    - use Anki(free) to create flashcards 
+      + really good to test you knowledge on concepts and makesure you can explain when tested
+-----------------
+Juliette
+-----------------
+  1. take notes using typora 
+     - https://typora.io/
+  2. when working through small problems try to find a solution to all problems on your own, if you cannot add the to a list "problems need to do again" 
+  3. when working through small problems if the solution introduces a new method, add this method to anki flash cards
+
+  4. create a flashcard everytime you find information which appears to be important (ANKIs web interface is better)
+    -important information
+     + general knowledge of CS (regular expressions, comand line interface)
+     + Any information about Ruby's behavior (eg plass by value/reference, variable scope, truthiness)
+     + A method that seemed particularly useful ( ARRAY#| merges two arrays while keeping the unique values)
+
+  5. topics to focus on outlined in study guide
+    - Variables as pointers
+    - Mutative methods 
+    - Pass by value and Pass by reference
+    - Truthiness
+    (if any of the follow concepts come up, make an example in ruby and save it)
+
+  6. you will have more than 20 questions (she had 23 ), and 3 hours
+    - when taking into account time to read the questions and proof read answers
+      + you only have 10 minutes to answer each question 
+    - she went through Srdans blog post above, and tried describe precisely what was going on under the hood in 5 minutes 
+
+  7. make a few premade sentences to use during the test, example: 
+    + "We’ve initialized the variable var_name and assigned to it the Integer/String/etc object value to it."
+
+

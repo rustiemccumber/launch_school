@@ -1,0 +1,9 @@
+{
+  "title": "Notes_109 study group ",
+  "cells": [
+    {
+      "type": "markdown",
+      "data": "- set a timer on the written assesment \n\n- set a timer on the interview assesment\n\n- 20 minutes for each problem \n\n-examples of live coding: https://launchschool.com/blog/live-session-beginning-ruby-part-3\n\n``` ruby\ndef test(str)\n  # p str.object_id\n  str += '?'\n  p str.object_id\n  str.downcase!\nend\n\ntest_str = \"Written Assessment\"\np test_str.object_id\ntest(test_str)\n\n# puts test_str\n```\n\n``` ruby\ndef test\n  puts \"written assessment\"\nend\n\nvar = test\n\nif var\n  puts \"written assessment\"\nelse\n  puts \"interview\"\nend\n```"
+    }
+  ]
+}
