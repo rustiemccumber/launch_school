@@ -1,0 +1,9 @@
+{
+  "title": "Check list for RB101 written assesment prep ",
+  "cells": [
+    {
+      "type": "text",
+      "data": "<input type=\"checkbox\" checked=\"checked\">&nbsp;finish taking notes on all the lessons (IMPORTANT: Review notes not finished)<div><br></div><div><input type=\"checkbox\" checked=\"checked\">&nbsp;make a check list from the study guide&nbsp;<br></div><div><br></div><div><input type=\"checkbox\"><span style=\"color: rgb(221, 221, 221);\">&nbsp;Pass through study good and insure you have a good understanding of all the items in the study guide (write check list for this)</span></div><div><font color=\"#cccccc\"><span style=\"caret-color: rgb(204, 204, 204);\"><br></span></font><div><input type=\"checkbox\">&nbsp;go through all the articles recommend in the study guide and take detailed notes on these</div><div><br></div><div><input type=\"checkbox\">&nbsp;create a reference sheet with mark down to use doing the test&nbsp;<br></div><div><font color=\"#000000\" face=\"system-ui\"><span style=\"caret-color: rgb(0, 0, 0);\">&nbsp; &nbsp;&nbsp;</span></font><input type=\"checkbox\">create can sentences to used and a list of key words (local variable, constant, initialized etc)</div><div><br></div></div><div><input type=\"checkbox\"><span style=\"color: rgb(221, 221, 221);\">Complete all problems in this study guide (</span><a href=\"https://github.com/ryanschaul/101_programming_foundations/blob/master/assessment1_prep.md\">https://github.com/ryanschaul/101_programming_foundations/blob/master/assessment1_prep.md</a>)<br></div><div><br></div><div><input type=\"checkbox\">Complete all all of Sardens study guide series (<a href=\"https://medium.com/how-i-started-learning-coding-from-scratch/advices-for-109-written-assessment-part-1-6f7fa821cf84\">https://medium.com/how-i-started-learning-coding-from-scratch/advices-for-109-written-assessment-part-1-6f7fa821cf84</a>)<br></div>"
+    }
+  ]
+}
