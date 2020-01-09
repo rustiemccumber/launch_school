@@ -32,6 +32,14 @@ min_by
 max_by
 minmax_by
 
+.strip 
+
+.upto(integer)
+
+.center 
+
+.concat. ('cat'.concat('dog') #=> 'catdog')
+
 .sort_by
 
 .each_char

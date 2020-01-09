@@ -45,6 +45,10 @@
 #   + Check to see if the letters in `current` match the letters in `next_word`
 #     - current.to_a.uniq == next_word.to_a.uniq
 
+def sum_consecutives(array)
+  array.chunk(&:itself).map(&:last).map(&:sum)
+end
+
 def findUniq(array)
   counter = 0
   result = ''
