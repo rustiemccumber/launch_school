@@ -1,0 +1,13 @@
+{
+  "title": "PEDAC TEMPLATE",
+  "cells": [
+    {
+      "type": "text",
+      "data": "<div>=begin</div>- INPUT:<div>- OUTPUT:</div><div><br></div><div><span style=\"color: rgb(221, 221, 221);\">-problem domain:</span><br></div><div><br></div><div>- implicit requirements:</div><div><br></div><div>- clarifying questions:</div><div><span style=\"color: rgb(221, 221, 221);\"><br></span></div><div><span style=\"color: rgb(221, 221, 221);\">- edge cases</span><br></div><div><br></div><div>Algorithm:</div><div><br></div><div>EXAMPLES</div><div><br></div><div>=end&nbsp;</div>"
+    },
+    {
+      "type": "text",
+      "data": "<br>"
+    }
+  ]
+}
