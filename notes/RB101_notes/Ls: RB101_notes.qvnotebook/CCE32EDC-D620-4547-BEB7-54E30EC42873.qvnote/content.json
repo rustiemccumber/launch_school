@@ -3,7 +3,7 @@
   "cells": [
     {
       "type": "markdown",
-      "data": "(1..4).to_a returns the array [1, 2, 3, 4]\n\n'puts'\n\n'prints'\n\n'p'\n\n'each'\n\n'each_with_index'\n\n'map'\n\n'select'\n\n'loop'\n\n'times'\n\n'reverse'\n\n'sample'\n\n'include'\n\n'slice' which is the same as just calling string[2,4]\n\n'divmod'\n\n'chars'\n\n'join'\n\n'squeeze'(String): if there are more than one repeating charaters, this will remove all but one character. \n\ntiernary operator: number > 0 ? -number : number"
+      "data": "(1..4).to_a returns the array [1, 2, 3, 4]\n\n'puts'\n\n'prints'\n\n'p'\n\n'each'\n\n'each_with_index'\n\n'map'\n\n'select'\n\n'loop'\n\n'times'\n\n'reverse'\n\n'sample'\n\n'include'\n\n'slice' which is the same as just calling string[2,4]\n\n'divmod'\n\n'chars'\n\n'join'\n\n'1.step(10, 2) {|x| puts x}'\n\n'squeeze'(String): if there are more than one repeating charaters, this will remove all but one character. \n\ntiernary operator: number > 0 ? -number : number"
     },
     {
       "type": "text",

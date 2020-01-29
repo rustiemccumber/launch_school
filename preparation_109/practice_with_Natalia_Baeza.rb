@@ -21,9 +21,10 @@
 # ===========
 
 
-# Given two arrays of strings a1 and a2 return a sorted array r in lexicographical order of the strings of a1 which are substrings of strings of a2.
+# Given two arrays of strings a1 and a2 return a sorted array r in alphabetical
+# order of the strings of a1 which are substrings of strings of a2.
 
-# #Example 1: a1 = ["arp", "live", "strong"]
+# Example 1: a1 = ["arp", "live", "strong"]
 
 # a2 = ["lively", "alive", "harp", "sharp", "armstrong"]
 
@@ -49,7 +50,8 @@
 # TRAINSKIP
 # 6 kyu
 # Build a pile of Cubes
-# Your task is to construct a building which will be a pile of n cubes. The cube at the bottom will have a volume of n^3, the cube above will have volume of (n-1)^3 and so on until the top which will have a volume of 1^3.
+# Your task is to construct a building which will be a pile of n cubes. The cube at the bottom will have a volume of n^3, 
+# the cube above will have volume of (n-1)^3 and so on until the top which will have a volume of 1^3.
 
 # You are given the total volume m of the building. Being given m can you find the number n of cubes you will have to build?
 
@@ -80,7 +82,8 @@
 
 # ======================
 
-# Create a function that returns the sum of the two lowest positive numbers given an array of minimum 4 positive integers. No floats or non-positive integers will be passed.
+# Create a function that returns the sum of the two lowest positive numbers given an array of minimum 4 positive integers.
+# No floats or non-positive integers will be passed.
 
 # For example, when an array is passed like [19, 5, 42, 2, 77], the output should be 7.
 

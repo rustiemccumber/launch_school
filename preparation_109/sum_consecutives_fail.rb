@@ -1,17 +1,4 @@
-# You are given an array which contains only integers (positive
-# and negative). Your job is to sum only the numbers that are
-# the same and consecutive. The result should be one array.
-# 
-# You can assume there is never an empty array and there will
-# always be an integer.
-#  
-# Examples:
-# ---------
-# sum_consecutives([1,4,4,4,0,4,3,3,1]) == [1,12,0,4,6,1]
-# sum_consecutives([1,1,7,7,3]) == [2,14,3]
-# sum_consecutives([-5,-5,7,7,12,0]) ==  [-10,14,12,0]
-# sum_consecutives([1]) == [1]
-# sum_consecutives([-1]) == [-1]
+
 
 
 =begin
@@ -66,5 +53,28 @@ p sum_consecutives([-5,-5,7,7,12,0]) ==  [-10,14,12,0]
 p sum_consecutives([1]) == [1]
 p sum_consecutives([-1]) == [-1]
 
+
+#NICE SOLUTION FROM MATTHEW 
+
+# def sum_consecutives(array)
+#   total = 0
+#   result = []
+#   array.each_with_index do |num, index|
+#     total += num
+#     if num == array[index + 1]
+#       next
+#     else
+#       result << total
+#       total = 0
+#     end
+#   end
+#   result
+# end
+
+# p sum_consecutives([1,4,4,4,0,4,3,3,1])
+# p sum_consecutives([1,1,7,7,3])
+# p sum_consecutives([-5,-5,7,7,12,0])
+# p sum_consecutives([1]) 
+# p sum_consecutives([-1]) 
 
 
