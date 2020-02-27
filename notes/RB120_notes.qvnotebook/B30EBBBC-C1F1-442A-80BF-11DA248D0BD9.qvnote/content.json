@@ -1,0 +1,9 @@
+{
+  "title": "Lesson 1 summary of OOP",
+  "cells": [
+    {
+      "type": "markdown",
+      "data": "At this point, you should be familiar with the basics of OOP in Ruby.  The major concepts you should understand are:\n\n- relationship between a class and an object\n- idea that a class groups behaviors (ie, methods)\n\n###object level\n\n- objects do not share state between other objects, but do share behaviors\n- put another way, the values in the objects' instance variables (states) are different, however they can call the same instance methods (behaviors) defined in the class.\n\n###Class level\n\n- classes also have behaviors not for objects(class methods)\n\n###INheritance\n\n- sub-classing from parent class. Can only sub-class from 1 parent: used to model hierarchical relationships\n- mexining in modules. Can mix in as many modules as needed; Ruby's way of implementing multiple inheritance\n- understand how sub-classing or mxing in modules affects the method lookup path."
+    }
+  ]
+}

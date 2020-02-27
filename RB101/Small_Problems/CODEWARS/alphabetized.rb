@@ -1,4 +1,4 @@
-=begin
+
 
 The alphabetized kata
 Re-order the characters of a string, so that 
@@ -15,29 +15,29 @@ alphabetized("The Holy Bible") # "BbeehHilloTy"
 
 
 
-- INPUT: string
-- OUTPUT: string with all the letters alphabetized and whitespaces remove
+# - INPUT: string
+# - OUTPUT: string with all the letters alphabetized and whitespaces remove
 
 
--problem domain: whitespace remove, case insesntive, only alphabtt letters
+# -problem domain: whitespace remove, case insesntive, only alphabtt letters
 
-- implicit requirements:
+# - implicit requirements:
 
-- clarifying questions:
+# - clarifying questions:
 
-- edge cases
+# - edge cases
 
-Algorithm:
+# Algorithm:
 
-split into an array 
-sort the array 
-join into a string
-remove white spaces 
+# split into an array 
+# sort the array 
+# join into a string
+# remove white spaces 
 
-EXAMPLES: 
+# EXAMPLES: 
 
- alphabetized("The Holy Bible") # "BbeehHilloTy" 
-=end
+#  alphabetized("The Holy Bible") # "BbeehHilloTy" 
+
 
 
 def alphabetized(string)
