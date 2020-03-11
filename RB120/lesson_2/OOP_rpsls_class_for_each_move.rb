@@ -48,19 +48,24 @@
 # Spock smashes scissors, Spock varporizes rock 
 
 
-
 class Player
+
   attr_accessor :move, :name, :score 
 
   def initialize
-    @move = nil
+    @move = nil 
     @score = 0 
+    @move_history = []
     set_name
     # maybe a "name"? what about a "move"?
   end
+  
+
+
 end
 
 class Human < Player
+
   def set_name
     n = ""
     loop do
@@ -81,7 +86,7 @@ class Human < Player
       puts "sorry, invalid choice"
     end
 
-    self.move = Move.new(choice)
+    self.move_history << choice.capitalize.new
   end
 
   def add_points
@@ -96,7 +101,7 @@ class Computer < Player
   end
 
   def choose
-    self.move = Move.new(Move::VALUES.sample)
+    self.move_history << [Rock, Paper, Scissors, Lizard, Spock].sample.new 
   end
 
   def add_points 
@@ -107,7 +112,7 @@ end
 
 class Move
 
-  VALUES = ['rock', 'paper', 'scissors', 'lizard', 'spock']
+  VALUES = [Rock, Paper, Scissors, Lizard, Spock]
 
   def initialize(choice)
     @value = choice
@@ -132,7 +137,7 @@ class Move
   def spock?
     @value == 'spock'
   end 
-
+  
   def >(other_move)
     (rock? && other_move.scissors?) ||
       (paper? && other_move.rock?) ||
@@ -146,18 +151,6 @@ class Move
       
   end
 
-# Rules Rock, Paper, Scissors, Lizard, Spock
-
-# Scissors cuts paper, Scissors decapitates lizard
-
-# Paper covers rock, Paper disproves spock 
-
-# Rock crushes lizard, Rock crushes scissors
-
-# Lizard poisons Spock, Lizard eats paper
-
-# Spock smashes scissors, Spock varporizes rock 
-
   def <(other_move)
     (rock? && other_move.paper?) ||
       (paper? && other_move.scissors?) ||
@@ -170,11 +163,72 @@ class Move
       (rock?  && other_move.spock?)
   end
 
+
+#Rules Rock, Paper, Scissors, Lizard, Spock
+
+# Scissors cuts paper, Scissors decapitates lizard
+
+# Paper covers rock, Paper disproves spock 
+
+# Rock crushes lizard, Rock crushes scissors
+
+# Lizard poisons Spock, Lizard eats paper
+
+# Spock smashes scissors, Spock varporizes rock 
+
   def to_s
     @value
   end
+
 end
 
+class Rock < Move
+
+  attr_reader :move_type
+
+  def initialize
+    @value = 'rock'
+  end
+
+end 
+
+class Paper < Move 
+
+  attr_reader :move_type
+
+  def initialize
+     @value = 'paper'
+  end
+
+end 
+
+class Scissors < Move 
+  
+  attr_reader :move_type
+
+  def initialize
+    @value = 'scissors'
+  end
+
+end
+
+class Lizard < Move
+  
+  attr_reader :move_type
+
+  def initialize
+     @value = 'lizard'
+  end 
+end 
+
+class Spock < Move
+  
+  attr_reader :move_type
+
+  def initialize
+    @value = 'spock'
+  end 
+end 
 
 # orchestration Engine
 
@@ -263,6 +317,19 @@ class RPSGame
   end
 end
 
+
+class Paper < Move
+  def initialize
+    @value = 'paper'
+  end
+
+  def >(other)
+    other.class == Rock || other.class == Spock
+  end
+
+  def <(other)
+    other.class == Scissors || other.class == Lizard
+  end
+end
+
 RPSGame.new.play
-
-
