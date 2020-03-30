@@ -6,14 +6,6 @@ class Score
     @computer_score = 0
     @human_score = 0
   end
-
-  def update_score(human_player, computer_player)
-    if human_player.move > computer_player.move
-      @human_score += 1
-    elsif computer_player.move > human_player.move
-      @computer_score += 1
-    end
-  end
 end
 
 class Player
@@ -42,6 +34,10 @@ class Player
             end
     move_history << move
   end
+
+  def to_s
+    @name
+  end
 end
 
 class Human < Player
@@ -60,7 +56,7 @@ or spock (sp):"
 end
 
 class Rock
-  attr_reader :wins, :value
+  attr_reader :value
 
   def initialize
     @value = { abreviation: 'r', name: 'rock' }
@@ -70,10 +66,14 @@ class Rock
   def >(other_move)
     wins.include?(other_move.value[:abreviation])
   end
+
+  private
+
+  attr_reader :wins
 end
 
 class Paper
-  attr_reader :wins, :value
+  attr_reader :value
 
   def initialize
     @value = { abreviation: 'p', name: 'paper' }
@@ -83,10 +83,14 @@ class Paper
   def >(other_move)
     wins.include?(other_move.value[:abreviation])
   end
+
+  private
+
+  attr_reader :wins
 end
 
 class Scissors
-  attr_reader :wins, :value
+  attr_reader :value
 
   def initialize
     @value = { abreviation: 'sc', name: 'scissors' }
@@ -96,10 +100,14 @@ class Scissors
   def >(other_move)
     wins.include?(other_move.value[:abreviation])
   end
+
+  private
+
+  attr_reader :wins
 end
 
 class Lizard
-  attr_reader :wins, :value
+  attr_reader :value
 
   def initialize
     @value = { abreviation: 'l', name: 'lizard' }
@@ -109,10 +117,14 @@ class Lizard
   def >(other_move)
     wins.include?(other_move.value[:abreviation])
   end
+
+  private
+
+  attr_reader :wins
 end
 
 class Spock
-  attr_reader :wins, :value
+  attr_reader :value
 
   def initialize
     @value = { abreviation: 'sp', name: 'spock' }
@@ -122,6 +134,10 @@ class Spock
   def >(other_move)
     wins.include?(other_move.value[:abreviation])
   end
+
+  private
+
+  attr_reader :wins
 end
 
 class R2D2 < Player
@@ -177,11 +193,27 @@ end
 #===========Game Play Orcastration============
 
 class RPSGame
-  attr_accessor :human, :computer, :score
-
   def initialize
     @human = Human.new
   end
+
+  def play
+    loop do
+      set_new_round
+      loop do
+        human_computer_choose
+        display_results
+        break if grand_winner(human, computer)
+      end
+      display_grand_winner
+      break if play_new_game? == false
+    end
+    display_goodbye_message
+  end
+
+  private
+
+  attr_accessor :human, :computer, :score
 
   def set_new_round
     display_welcome_message
@@ -193,26 +225,10 @@ class RPSGame
 
   def display_results
     display_move_history
-    score.update_score(human, computer)
+    update_score(human, computer)
     display_round_winner
     display_score
   end
-
-  def play
-    loop do
-      set_new_round
-      loop do
-        human_computer_choose
-        display_results
-        break if (score.human_score == 3) || (score.computer_score == 3)
-      end
-      display_grand_winner
-      break if play_new_game? == false
-    end
-    display_goodbye_message
-  end
-
-  private
 
   def human_computer_choose
     human.choose
@@ -231,8 +247,12 @@ First to 3 points wins"
     loop do
       puts "What's your name?"
       n = gets.chomp
-      break unless n.empty?
-      puts "Sorry, must enter a value"
+      break unless n.empty? || n.chars.all?(" ")
+      if n.empty?
+        puts "Sorry, must enter a value."
+      elsif n.chars.all?(" ")
+        puts "The name cannot be comprised of all spaces"
+      end
     end
     human.name = n
   end
@@ -255,6 +275,26 @@ First to 3 points wins"
     self.score = Score.new
   end
 
+  def grand_winner(human_player, computer_player)
+    return computer_player.name if score.computer_score == 3
+    return human_player.name if score.human_score == 3
+    false
+  end
+
+  def round_winner(human_player, computer_player)
+    return human_player.name if human_player.move > computer_player.move
+    return computer_player.name if computer_player.move > human_player.move
+    "it's a tie"
+  end
+
+  def update_score(human_player, computer_player)
+    if round_winner(human_player, computer_player) == human_player.name
+      score.human_score += 1
+    elsif round_winner(human_player, computer_player) == computer_player.name
+      score.computer_score += 1
+    end
+  end
+
   def display_score
     puts ""
     puts "#{human.name} has #{score.human_score} points"
@@ -263,40 +303,45 @@ First to 3 points wins"
 
   def display_round_winner
     puts ""
-    if human.move > computer.move
-      puts "#{human.name} wins this round!"
-    elsif computer.move > human.move
-      puts "#{computer.name} wins this round!"
-    else
-      puts "it's a tie"
-    end
+    puts "round winner: #{round_winner(human, computer)}"
   end
 
-  def display_move_history
-    system "clear"
+  def display_grand_winner
+    puts ""
+    puts "#{grand_winner(human, computer)} is the grand_winner"
+  end
+
+  def compile_move_history
     human_history = human.move_history
     computer_history = computer.move_history
-    title_player = "#{human.name}'s last move"
-    title_computer = "#{computer.name}'s last move"
+    human_history.zip(computer_history)
+  end
+
+  def display_move_history_header
+    system "clear"
+    title_player = "#{human}'s last move"
+    title_computer = "#{computer}'s last move"
     full_title = " #{title_player} | #{title_computer} "
     top = "_" * full_title.size
     puts " #{top}"
     puts "|" + (" " * top.size) + "|"
     puts "|#{full_title}|"
     puts " #{top}"
-    human_history.zip(computer_history).each do |human_move, computer_move|
-      puts human_move.value[:name].rjust(title_player.size / 1.5) +
-           computer_move.value[:name].rjust(title_player.size + 5)
+  end
+
+  def display_move_history
+    system "clear"
+
+    r_just_offset = human.to_s.size + 12
+    display_move_history_header
+    compile_move_history.each do |human_move, computer_move|
+      puts human_move.value[:name].rjust((r_just_offset) / 1.5) +
+           computer_move.value[:name].rjust((r_just_offset) + 5)
     end
   end
 
-  def display_grand_winner
-    puts ""
-    puts "#{computer.name} is the grand_winner" if score.computer_score == 3
-    puts "#{human.name} is the grand_winner" if score.human_score == 3
-  end
-
   def display_goodbye_message
+    system "clear"
     puts "Thank you for playing goodbye!"
   end
 
@@ -314,7 +359,6 @@ First to 3 points wins"
   end
 
   def play_new_game?
-    system "clear"
     answer = nil
     loop do
       puts "Would you like to play a new game? (y/n)"
