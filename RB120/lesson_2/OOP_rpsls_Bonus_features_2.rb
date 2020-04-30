@@ -203,9 +203,9 @@ class RPSGame
       loop do
         human_computer_choose
         display_results
-        break if grand_winner(human, computer)
+        break if grand_winner
       end
-      display_grand_winner
+      display_grand_winnermonica yee
       break if play_new_game? == false
     end
     display_goodbye_message
@@ -213,7 +213,7 @@ class RPSGame
 
   private
 
-  attr_accessor :human, :computer, :score
+  attr_accessor :human, :computer, :score, :round_winner
 
   def set_new_round
     display_welcome_message
@@ -224,8 +224,9 @@ class RPSGame
   end
 
   def display_results
+    round_winner=
     display_move_history
-    update_score(human, computer)
+    update_score
     display_round_winner
     display_score
   end
@@ -275,22 +276,26 @@ First to 3 points wins"
     self.score = Score.new
   end
 
-  def grand_winner(human_player, computer_player)
-    return computer_player.name if score.computer_score == 3
-    return human_player.name if score.human_score == 3
+  def grand_winner
+    return computer.name if score.computer_score == 3
+    return human.name if score.human_score == 3
     false
   end
 
-  def round_winner(human_player, computer_player)
-    return human_player.name if human_player.move > computer_player.move
-    return computer_player.name if computer_player.move > human_player.move
-    "it's a tie"
+  def round_winner
+    if human.move > computer.move
+      @round_winner = human.name
+    elsif computer.move > human.move
+      @round_winner = computer.name
+    else 
+      @round_winner = "it's a tie"
+    end 
   end
 
-  def update_score(human_player, computer_player)
-    if round_winner(human_player, computer_player) == human_player.name
+  def update_score
+    if round_winner == human.name
       score.human_score += 1
-    elsif round_winner(human_player, computer_player) == computer_player.name
+    elsif round_winner == computer.name
       score.computer_score += 1
     end
   end
@@ -303,12 +308,12 @@ First to 3 points wins"
 
   def display_round_winner
     puts ""
-    puts "round winner: #{round_winner(human, computer)}"
+    puts "round winner: #{round_winner}"
   end
 
   def display_grand_winner
     puts ""
-    puts "#{grand_winner(human, computer)} is the grand_winner"
+    puts "#{grand_winner} is the grand_winner"
   end
 
   def compile_move_history

@@ -1,0 +1,9 @@
+{
+  "title": "Running questions for OOP (RB120) ",
+  "cells": [
+    {
+      "type": "markdown",
+      "data": "Take the following code:\n\n```ruby\nclass Greeting\n  def greet(message)\n    puts message\n  end\nend\n\nclass Hello < Greeting\n  def self.hi\n    greet(\"Hello\")\n  end\nend \n\nclass Goodbye < Greeting\n  def bye\n    greet(\"Goodbye\")\n  end\nend\n```\n\nif we call `Hello.hi` we get an error message `undefined method greet for Hello:Class` we can solve this in various ways.  But basically this calls the greet on the Hello class.  Greet is not a class method, it can only be called on objects. \n\n\n### You need to review how methods are accessible through hierarchy\n### You also need to review scope of instance variables and methods, ### probably constants too "
+    }
+  ]
+}
