@@ -140,11 +140,18 @@ class Square
 end
 
 class Player
-  attr_accessor :score, :marker
+
+  GENERIC_NAMES = ['CPU_rod', 'CPU_tod', 'CPU_tod_with_a_bod', 'CPU_tod_with_a_big_rod_and_bod']
+  attr_accessor :score, :marker, :name
   def initialize(marker = nil)
     @marker = marker
+    @name = nil
     @score = 0
   end
+
+  def select_random_name
+    self.name = GENERIC_NAMES.sample
+  end 
 end
 
 class TTTGame
@@ -206,7 +213,7 @@ class TTTGame
   end
 
   def display_board
-    puts "You're a #{human.marker}.  Computer is a #{computer.marker}."
+    puts "#{human.name} a #{human.marker}.  #{computer.name} is a #{computer.marker}."
     puts ""
     board.draw
     puts ""
@@ -218,10 +225,23 @@ class TTTGame
   end
 
   def set_up
+    choose_human_name
+    choose_computer_name
     human_choose_marker
     computer_choose_marker
     choose_first_player
+  end
+
+  def choose_human_name
+     human_name = nil
+     puts "please choose a human name"
+     human_name = gets.chomp
+     human.name = human_name
   end 
+  
+  def choose_computer_name
+    @computer.select_random_name
+  end
   
   def human_choose_marker
     human_marker = nil
@@ -313,8 +333,8 @@ class TTTGame
   end
 
   def display_running_score
-    puts "your score: #{human.score}"
-    puts "computer's score: #{computer.score}"  
+    puts "#{human.name}'s score: #{human.score}"
+    puts "#{computer.name}'s score: #{computer.score}"  
   end
 
   def grand_winner?
@@ -334,9 +354,9 @@ class TTTGame
 
     case board.winning_marker
     when human.marker
-      puts "you won!"
+      puts "#{human.name} won!"
     when computer.marker
-      puts "computer won!"
+      puts "#{computer.name} won!"
     else
       puts "its a tie"
     end
