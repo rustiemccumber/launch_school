@@ -10,13 +10,42 @@
 class Deck
   RANKS = ((2..10).to_a + %w(Jack Queen King Ace)).freeze
   SUITS = %w(Hearts Clubs Diamonds Spades).freeze
+  
+  attr_accessor :deck
+
+  def initialize
+    @deck = []
+    load_deck
+  end
+
+  def draw
+    reload_deck
+    drawn_card = @deck.pop
+  end
+
+  private
+
+  def load_deck
+    RANKS.each do |rank|
+      SUITS.each do |suit|
+        card = Card.new(rank, suit)
+        @deck << card
+      end
+    end
+
+    @deck.shuffle!
+  end
+  
+  def reload_deck
+    load_deck if deck.empty?
+  end
+  
+
 end
 
 class Card
   include Comparable
   attr_reader :rank, :suit
-
-  VALUES = { 'Jack' => 11, 'Queen' => 12, 'King' => 13, 'Ace' => 14 }
 
   def initialize(rank, suit)
     @rank = rank
@@ -27,11 +56,12 @@ class Card
     "#{rank} of #{suit}"
   end
 
-  def value
-    VALUES.fetch(rank, rank)
-  end
+  # def value
+  #   VALUES.fetch(rank, rank)
+  # end
 
-  def <=>(other_card)
-    value <=> other_card.value
-  end
+  # def <=>(other_card)
+  #   value <=> other_card.value
+  # end
 end
+
