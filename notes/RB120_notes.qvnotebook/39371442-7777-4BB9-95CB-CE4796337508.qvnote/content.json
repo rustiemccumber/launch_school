@@ -1,0 +1,9 @@
+{
+  "title": "RB120 ASSESMENT PREPARATION",
+  "cells": [
+    {
+      "type": "markdown",
+      "data": "Undestand (from lesson 4 summary):\n\n- the variable scope of instance, class and constant variables\n- the effects of sub-classsing another class\n- the effect of mixing in a module\n- how to define and invoke instance and class methods\n\n\nReview:\n\n  Review Question 6 on th 7 on the OOP lesson 4 quiz, inparticularly review   `self` and class methods, and constants.\n  \n  \n"
+    }
+  ]
+}
