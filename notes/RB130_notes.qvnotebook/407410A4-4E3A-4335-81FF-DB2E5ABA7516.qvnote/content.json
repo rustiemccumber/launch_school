@@ -1,0 +1,9 @@
+{
+  "title": "Challenges",
+  "cells": [
+    {
+      "type": "markdown",
+      "data": "###easy_1\n\noctal: Revisit this\n\ntrinary: got a solution for this, took awhile\n\nSum_of_multiples:  I really struggled on this, should go back an revisit.\n\ntest_anagrams:  revisit this as well\n\nword_count: revisit this, scan and regex should be used, I did not use scan in my solution"
+    }
+  ]
+}

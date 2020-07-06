@@ -38,7 +38,7 @@ class Todo
   end
 
   def ==(otherTodo)
-    title == otherTodo.title &&
+    title == otherTodo.tittle &&
        description == otherTodo.description && 
        done == otherTodo.done
   end 
@@ -65,15 +65,15 @@ class TodoList
   # rest of class needs implementation
   
   def size
-    @todos.size
+    @todo.size
   end
 
   def first
-    @todos.first
+    @todo.first
   end
 
   def last
-    @todos.last
+    @todo.last
   end
 
   # def to_s
@@ -110,7 +110,7 @@ class TodoList
     @todos.shift
   end
 
-  def pop
+  def shift
     @todos.pop
   end
 

@@ -1,0 +1,1 @@
+asset_equal true, list.empty
