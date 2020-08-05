@@ -1,0 +1,9 @@
+{
+  "title": "Questions for jason d",
+  "cells": [
+    {
+      "type": "markdown",
+      "data": "- can you describe single inheritance.\n- how does ruby deal with multiple inheritance\n- can you describe polymorhism\n- can you describe incapsulaiton\n- what are the 3 levels of protect that ruby provides\n- what are some the different ways that self can be used. \n"
+    }
+  ]
+}

@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require "minitest/reporters"
 Minitest::Reporters.use!
 
-require_relative 'octal'
+require_relative 'octal_try2'
 
 class OctalTest < Minitest::Test
   def test_octal_1_is_decimal_1

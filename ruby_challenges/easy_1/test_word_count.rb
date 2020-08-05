@@ -3,7 +3,7 @@ require 'minitest/reporters'
 
 Minitest::Reporters.use!
 
-require_relative 'word_count'
+require_relative 'word_count_try2'
 
 # Test data version:
 
@@ -79,7 +79,7 @@ class PhraseTest < Minitest::Test
 
 
   def test_with_apostrophes
-    skip
+    #skip
     phrase = Phrase.new("First: don't laugh. Then: don't cry.")
     counts = {
       'first' => 1, "don't" => 2, 'laugh' => 1,
@@ -89,7 +89,7 @@ class PhraseTest < Minitest::Test
   end
 
   def test_with_quotations
-    skip
+    #skip
     phrase = Phrase.new("Joe can't tell between 'large' and large.")
     counts = {
       'joe' => 1, "can't" => 1, 'tell' => 1,

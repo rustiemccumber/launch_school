@@ -1,0 +1,9 @@
+{
+  "title": "RB139 breaking down code",
+  "cells": [
+    {
+      "type": "markdown",
+      "data": "\n```ruby\n# method implementation\ndef times(number)\n  counter = 0\n  while counter < number do\n    yield(counter)\n    counter += 1\n  end\n\n  number                      # return the original method argument to match behavior of `Integer#times`\nend\n\n# method invocation\ntimes(5) do |num|\n  puts num\nend\n\n# Output:\n# 0\n# 1\n# 2\n# 3\n# 4\n# => 5\n```\n\nMethod invocation begins on line 13. where the `times` method is invoked with a `do..end` block and is passed the argument `5`.\n\nmethod invocation then jumps to the method implemntaiton on line 2, where the 5 is assigned to be referenced by the method local variable `number`\n\non line 3 the local variable `counter` is set to point to 0\n\non line 4 a `while` loop is called that repeats while the local varribale counter is lsess than the local variable `number` which points to `5`.  The `while` loop is called with a `do..end` block. \n\nexecution then continues to line 5, where the the `do..end` blcok defined on line 13 is yield to, and the block parameter `num` is set to point to the value that is being referenced by the local vairable `counter`.  \n\nmethod execution continues on `line 14` where the `puts` method is invoked, and the current, value being referenced by the counter local variable is passed to it as an argument, outputting the current value of the `counter`. \n\nmethod execution jumps back to line 6, where the value being reference by the local variable `counter` is intrement by 1. \n\nthis repeast ontile the counter is greater than or equal to the value being referenced by the local variable `number`\n\nline 9 returns the value being referenced by the local variable `number`.  which is the return value of the `times` mehtod. "
+    }
+  ]
+}

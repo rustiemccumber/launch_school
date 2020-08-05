@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require "minitest/reporters"
 Minitest::Reporters.use!
 
-require_relative 'trinary'
+require_relative 'trinar_try2'
 
 class TrinaryTest < Minitest::Test
   def test_trinary_1_is_decimal_1

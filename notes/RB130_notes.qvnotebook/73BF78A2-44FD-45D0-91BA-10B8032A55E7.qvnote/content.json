@@ -1,0 +1,9 @@
+{
+  "title": "self explanations of concepts",
+  "cells": [
+    {
+      "type": "markdown",
+      "data": "### passing blocks explicitly\n\n```ruby\ndef cats(&block)\n  block\n  block.call\nend \n```\n\nin the above example a method is defined that takes one parameter, a block.  the & symbol turns the block into a `Proc` object, and assigns the object to be referenced by the local vairable `block`.  The local variable (which is pointing to the proc) can then be passed around within the method, and to other surroudning methods, the proc can then be excecuted with the `call` method. \n\n### &:\n\nUsing `&:` during a method invocation is a short hand way of representing a block during, which contains some method call on the block parameter.\n\nfor example\n\nsay you have the follwing method call:\n\n```ruby\n[1, 2, 3].map(&:to_s)\n```\nthis is equivalent to writing\n\n```ruby\n[1, 2, 3].map { |n| n.to_s } \n```\nwhat is happening though when you us `&:to_s`.  First the `&` checks to see if what follows it is a `Proc` if it is not a proc it will try to convert it into a `Proc`, the `Symbol` class has a method `#to_proc`.  So Ruby can successfully convert this into a `Proc`  it then turns the `proc` into a block and allows execution the same. "
+    }
+  ]
+}
