@@ -1,0 +1,20 @@
+
+
+<div class="header">
+  <h2><%= @name %>'s information </h2>
+</div>
+
+<div id= "user-content">
+  <p><%= @name %>'s email: <%= @users_info_hash[@name.to_sym][:email] %><p>
+  <p><%= @name %>'s interests: <%= @users_info_hash[@name.to_sym][:interests].join(", ") %><p>
+</div>
+
+<div id="other-users" >
+  <ul> 
+    <% @users_info_hash.each do |user_name, user_info| %>
+      <% if user_name.to_s != @name %>
+        <li><a href="/<%= user_name %>" ><%= user_name.to_s %></a></li>
+      <% end %>
+    <% end %>
+  </ul>
+</div>

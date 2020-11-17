@@ -1,0 +1,12 @@
+
+<div class="header">
+  <h2> Active Users </h2>
+</div>div>
+
+<div id= "user_content">
+  <ul> 
+    <% @users_info_hash.each do |user_name, user_info| %>
+      <li><a href="/<%= user_name %>" ><%= user_name.to_s %></a></li>
+    <% end %>
+  </ul>
+</div>
