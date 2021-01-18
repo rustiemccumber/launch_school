@@ -1,0 +1,13 @@
+{
+  "title": "RB 185 Database Applications",
+  "cells": [
+    {
+      "type": "markdown",
+      "data": "|*Command* | *What it does* |\n|`PG.connect(dbname: \"a_database\")` | Create a new `PG::Connection` object |\n|`connection.exec(\"SELECT * FROM table_name\")` | execute a SQL query and return a `PG::Result` object|\n|`result.values` | Returns an Array of Arrarys containing values for each row in `result` |\n|`result.fields` |  Returns the names of columns as an Array of Strings |\n|`result.ntuples` | Returns the number of rows in `result` |\n|`result.each(&block)` | Yields a Hash oc column names and values to the block for each row in `result`|\n|`result.each_row(&block)` | Yields an Array of values to the block for each row in `result` |\n|`result[index]` | Returns a Hash of values for row at `index` in `result` |\n|`result.field_values(column)` |  Returns an Array of values for `column`, one for each row in `result` |\n|result.column_values(index) | Returns an Array of values for column at `index`, one for each row in `result`|\n\n\nwork flow for connecting with database to use ruby\n\nfirst connect to require \"pg\"\n```\nrequire \"pg\"\n```\n\nthen connect to the database\n\n```\ndb = PG.connect(dbname.\"films\")\n```\n\nto execute a query against the database you will need to use the exec method\n\n```\ndb.exec(\"SELECT * FROM directors\")\n```"
+    },
+    {
+      "type": "text",
+      "data": "<div><br></div><div><br></div>"
+    }
+  ]
+}
